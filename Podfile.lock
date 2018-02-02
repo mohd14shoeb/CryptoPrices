@@ -3,15 +3,18 @@ PODS:
     - Charts/Core (= 3.0.5)
   - Charts/Core (3.0.5)
   - PureLayout (2.0.6)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Charts
   - PureLayout (~> 2.0.5)
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: e7b7f9cebb00df931b98c1224b36c00b91a39118
+PODFILE CHECKSUM: c8608de36de781aa3444550a108416335c1642dd
 
 COCOAPODS: 1.4.0

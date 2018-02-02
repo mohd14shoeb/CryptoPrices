@@ -12,9 +12,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var currency: String!
     let defaults = UserDefaults.standard
+    var currenciesDictionary = [CellName]()
     
     let refreshControl = UIRefreshControl()
-    let currencies: [CurrencyTypeEnum] = [.btc, .eth, .ltc, .xrp, .xmr, .neo]
     let reuseIdentifier = String(describing: CryptoPricesTableViewCell.self)
     
     lazy var tableView: UITableView = {
@@ -117,6 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             currencySwitch.selectedSegmentIndex = 1
         }
     }
+    
     // MARK: func refreshPrices: Refresh tableView
     @objc func refreshPrices() {
         let range = NSMakeRange(0, tableView.numberOfSections)
@@ -126,14 +127,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencies.count
+        return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        let currencyType = self.currencies[indexPath.row]
-        cell.formatCell(withCurrencyType: currencyType, currencyName: currency)
-        cell.sizeToFit()
+        CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath)
         return cell
     }
     

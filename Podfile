@@ -16,4 +16,5 @@ target 'CryptoPrices' do
   # Pods for CryptoPrices
   pod 'Charts'
   pod 'PureLayout', '~> 2.0.5'
+  pod 'SwiftyJSON'
 end

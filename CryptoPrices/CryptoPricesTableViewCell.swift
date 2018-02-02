@@ -11,11 +11,11 @@ import UIKit
 import Charts
 
 class CryptoPricesTableViewCell: UITableViewCell {
-    let cryptoCurrencyImageView = UIImageView()
-    let priceLabel = UILabel()
-    let symbolLabel = UILabel()
-    let nameLabel = UILabel()
-    let priceChangeLabel = UILabel()
+    var cryptoCurrencyImageView = UIImageView()
+    var priceLabel = UILabel()
+    var symbolLabel = UILabel()
+    var nameLabel = UILabel()
+    var priceChangeLabel = UILabel()
     
     let priceLineChartView = LineChartView()
     
@@ -95,23 +95,6 @@ class CryptoPricesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func formatCell(withCurrencyType currencyType: CurrencyTypeEnum, currencyName: String) {
-        nameLabel.text = currencyType.name
-        cryptoCurrencyImageView.image = currencyType.image
-        symbolLabel.text = "BTC"
-        priceChangeLabel.text = "+0.005"
-        
-        CurrencyType().getValue(cryptoName: currencyType.rawValue, currencyName: currencyName) { (value) in
-            DispatchQueue.main.async {
-                if currencyName == "USD" {
-                    self.priceLabel.text = value?.formattedCurrencyStringUSD ?? "Failed to get price"
-                    print(value)
-                } else {
-                    self.priceLabel.text = value?.formattedCurrencyStringEUR ?? "Failed to get price"
-                    print(value)
-                }
-            }
-        }
-    }
+    
 }
 

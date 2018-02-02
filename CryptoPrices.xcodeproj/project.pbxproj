@@ -14,26 +14,9 @@
 		0EA9916620183EC600F1A271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916520183EC600F1A271 /* Assets.xcassets */; };
 		0EA9916920183EC600F1A271 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916720183EC600F1A271 /* LaunchScreen.storyboard */; };
 		0EA9917320184BD200F1A271 /* CurrencyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9917220184BD100F1A271 /* CurrencyType.swift */; };
-		0ECDA0EF201E3BB900BFF853 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECDA0EE201E3BB900BFF853 /* NotificationCenter.framework */; };
-		0ECDA0F2201E3BBA00BFF853 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECDA0F1201E3BBA00BFF853 /* TodayViewController.swift */; };
-		0ECDA0F5201E3BBA00BFF853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ECDA0F3201E3BBA00BFF853 /* MainInterface.storyboard */; };
-		0ECDA0F9201E3BBA00BFF853 /* BTCWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0ECDA0EC201E3BB900BFF853 /* BTCWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0ECDA0FF201E61A400BFF853 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9917020184B6200F1A271 /* CryptoTableViewCell.swift */; };
-		0ECDA101201E61BD00BFF853 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECDA100201E61BD00BFF853 /* CryptoTableViewCell.swift */; };
-		0ECDA103201E61E200BFF853 /* CurrencyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECDA102201E61E200BFF853 /* CurrencyType.swift */; };
 		A5A89C36BD47EC5374C28C21 /* Pods_CryptoPrices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD10E9EE829C2B5D3D76AFF /* Pods_CryptoPrices.framework */; };
-		B44364F10B98ECC042A7E972 /* Pods_BTCWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA40F6E829DE81ECF0C6C3C /* Pods_BTCWidget.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0ECDA0F7201E3BBA00BFF853 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0EA9915320183EC600F1A271 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0ECDA0EB201E3BB900BFF853;
-			remoteInfo = BTCWidget;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0ECDA0FD201E3BBA00BFF853 /* Embed App Extensions */ = {
@@ -42,7 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0ECDA0F9201E3BBA00BFF853 /* BTCWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,13 +42,7 @@
 		0EA9916A20183EC600F1A271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EA9917020184B6200F1A271 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
 		0EA9917220184BD100F1A271 /* CurrencyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyType.swift; sourceTree = "<group>"; };
-		0ECDA0EC201E3BB900BFF853 /* BTCWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BTCWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ECDA0EE201E3BB900BFF853 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		0ECDA0F1201E3BBA00BFF853 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		0ECDA0F4201E3BBA00BFF853 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		0ECDA0F6201E3BBA00BFF853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0ECDA100201E61BD00BFF853 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
-		0ECDA102201E61E200BFF853 /* CurrencyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyType.swift; sourceTree = "<group>"; };
 		0ECDA133201EBE4800BFF853 /* CryptoPrices.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptoPrices.entitlements; sourceTree = "<group>"; };
 		4E6DED68A79B5ADEC120A29A /* Pods-CryptoPrices.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoPrices.release.xcconfig"; path = "Pods/Target Support Files/Pods-CryptoPrices/Pods-CryptoPrices.release.xcconfig"; sourceTree = "<group>"; };
 		56621D3824D125122E92DCFD /* Pods-CryptoPrices.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoPrices.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CryptoPrices/Pods-CryptoPrices.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,15 +61,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0ECDA0E9201E3BB900BFF853 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0ECDA0EF201E3BB900BFF853 /* NotificationCenter.framework in Frameworks */,
-				B44364F10B98ECC042A7E972 /* Pods_BTCWidget.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				0EA9915D20183EC600F1A271 /* CryptoPrices */,
-				0ECDA0F0201E3BBA00BFF853 /* BTCWidget */,
 				0ECDA0ED201E3BB900BFF853 /* Frameworks */,
 				0EA9915C20183EC600F1A271 /* Products */,
 				9460F122416A59C0697332E6 /* Pods */,
@@ -112,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				0EA9915B20183EC600F1A271 /* CryptoPrices.app */,
-				0ECDA0EC201E3BB900BFF853 /* BTCWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,18 +109,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0ECDA0F0201E3BBA00BFF853 /* BTCWidget */ = {
-			isa = PBXGroup;
-			children = (
-				0ECDA0F1201E3BBA00BFF853 /* TodayViewController.swift */,
-				0ECDA0F3201E3BBA00BFF853 /* MainInterface.storyboard */,
-				0ECDA0F6201E3BBA00BFF853 /* Info.plist */,
-				0ECDA100201E61BD00BFF853 /* CryptoTableViewCell.swift */,
-				0ECDA102201E61E200BFF853 /* CurrencyType.swift */,
-			);
-			path = BTCWidget;
-			sourceTree = "<group>";
-		};
 		9460F122416A59C0697332E6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,31 +138,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				0ECDA0F8201E3BBA00BFF853 /* PBXTargetDependency */,
 			);
 			name = CryptoPrices;
 			productName = Crypto;
 			productReference = 0EA9915B20183EC600F1A271 /* CryptoPrices.app */;
 			productType = "com.apple.product-type.application";
-		};
-		0ECDA0EB201E3BB900BFF853 /* BTCWidget */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0ECDA0FA201E3BBA00BFF853 /* Build configuration list for PBXNativeTarget "BTCWidget" */;
-			buildPhases = (
-				D815702EA3E04F0ABC1C706A /* [CP] Check Pods Manifest.lock */,
-				0ECDA0E8201E3BB900BFF853 /* Sources */,
-				0ECDA0E9201E3BB900BFF853 /* Frameworks */,
-				0ECDA0EA201E3BB900BFF853 /* Resources */,
-				19B24DCB92FE55DB54644823 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BTCWidget;
-			productName = BTCWidget;
-			productReference = 0ECDA0EC201E3BB900BFF853 /* BTCWidget.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -230,10 +163,6 @@
 							};
 						};
 					};
-					0ECDA0EB201E3BB900BFF853 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = 0EA9915620183EC600F1A271 /* Build configuration list for PBXProject "CryptoPrices" */;
@@ -250,7 +179,6 @@
 			projectRoot = "";
 			targets = (
 				0EA9915A20183EC600F1A271 /* CryptoPrices */,
-				0ECDA0EB201E3BB900BFF853 /* BTCWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -263,14 +191,6 @@
 				0EA9916920183EC600F1A271 /* LaunchScreen.storyboard in Resources */,
 				0EA9916620183EC600F1A271 /* Assets.xcassets in Resources */,
 				0EA9916420183EC600F1A271 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0ECDA0EA201E3BB900BFF853 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0ECDA0F5201E3BBA00BFF853 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,21 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		19B24DCB92FE55DB54644823 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BTCWidget/Pods-BTCWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6BF5F4B89E71EE9854BAC426 /* [CP] Copy Pods Resources */ = {
@@ -334,33 +239,17 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-CryptoPrices/Pods-CryptoPrices-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CryptoPrices/Pods-CryptoPrices-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D815702EA3E04F0ABC1C706A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BTCWidget-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -378,25 +267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0ECDA0E8201E3BB900BFF853 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0ECDA101201E61BD00BFF853 /* CryptoTableViewCell.swift in Sources */,
-				0ECDA103201E61E200BFF853 /* CurrencyType.swift in Sources */,
-				0ECDA0F2201E3BBA00BFF853 /* TodayViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0ECDA0F8201E3BBA00BFF853 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0ECDA0EB201E3BB900BFF853 /* BTCWidget */;
-			targetProxy = 0ECDA0F7201E3BBA00BFF853 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0EA9916220183EC600F1A271 /* Main.storyboard */ = {
@@ -413,14 +284,6 @@
 				0EA9916820183EC600F1A271 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		0ECDA0F3201E3BBA00BFF853 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0ECDA0F4201E3BBA00BFF853 /* Base */,
-			);
-			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -537,7 +400,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56621D3824D125122E92DCFD /* Pods-CryptoPrices.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CryptoPrices/CryptoPrices.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -558,7 +420,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4E6DED68A79B5ADEC120A29A /* Pods-CryptoPrices.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CryptoPrices/CryptoPrices.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -570,48 +431,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = come.some1else.CryptoPrices;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		0ECDA0FB201E3BBA00BFF853 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F8C1978C93175CC0D89FA0A /* Pods-BTCWidget.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N33CM3J58S;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = BTCWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = come.some1else.CryptoPrices.BTCWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0ECDA0FC201E3BBA00BFF853 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 852A003351AFD3C46BFE2086 /* Pods-BTCWidget.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N33CM3J58S;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = BTCWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = come.some1else.CryptoPrices.BTCWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -634,15 +453,6 @@
 			buildConfigurations = (
 				0EA9916E20183EC600F1A271 /* Debug */,
 				0EA9916F20183EC600F1A271 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0ECDA0FA201E3BBA00BFF853 /* Build configuration list for PBXNativeTarget "BTCWidget" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0ECDA0FB201E3BBA00BFF853 /* Debug */,
-				0ECDA0FC201E3BBA00BFF853 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

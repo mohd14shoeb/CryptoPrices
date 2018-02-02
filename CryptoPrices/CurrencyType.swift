@@ -8,111 +8,88 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 class CurrencyType {
+    var currenciesDictionary: [CellName]?
     // MARK: func getValue: Get USD or EUR price of cryptocurrencies
-    func getValue(cryptoName: String, currencyName: String, completion: @escaping (_ value: NSNumber?) -> Void) {
-        let currencies: [String] = ["BTC", "ETH", "LTC", "XRP", "XMR", "NEO"]
-        let string = currencies.joined(separator: ",")
-        let apiString = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=\(string)&tsyms=EUR,USD"
+    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath) {
+        let apiString = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR"
         guard let apiURL = URL(string: apiString) else {
-            completion(nil)
             print("URL Invalid")
             return
         }
         
         let request = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             guard let data = data else {
-                completion(nil)
                 print(error?.localizedDescription ?? "")
                 return
             }
             do {
-                let crypto = try JSONDecoder().decode(CellName.self, from: data)
-                let value = self.setCurrency(cryptoName: cryptoName, currencyName: currencyName, crypto: crypto)
-                completion(value)
+                let json = try JSONDecoder().decode([CellName].self, from: data)
+                print(json[0])
+                self.currenciesDictionary = json
+                DispatchQueue.main.async {
+                    name.text = json[indexPath.row].name
+                    symbol.text = json[indexPath.row].symbol
+                    price.text = json[indexPath.row].priceUSD
+                    priceChange.text = json[indexPath.row].precentChange1h
+                }
+                
             } catch {
-                completion(nil)
                 print(error.localizedDescription)
             }
         }
         request.resume()
     }
-    // MARK: func setCurrency
-    func setCurrency(cryptoName: String, currencyName: String, crypto: CellName) -> NSNumber {
-        let value: NSNumber
-        switch cryptoName {
-        case "BTC":
-            if currencyName == "EUR" {
-                value = crypto.BTC.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.BTC.USD as NSNumber
-                return value
-            }
-        case "ETH":
-            if currencyName == "EUR" {
-                value = crypto.ETH.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.ETH.USD as NSNumber
-                return value
-            }
-        case "LTC":
-            if currencyName == "EUR" {
-                value = crypto.LTC.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.LTC.USD as NSNumber
-                return value
-            }
-        case "XRP":
-            if currencyName == "EUR" {
-                value = crypto.XRP.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.XRP.USD as NSNumber
-                return value
-            }
-        case "XMR":
-            if currencyName == "EUR" {
-                value = crypto.XMR.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.XMR.USD as NSNumber
-                return value
-            }
-        case "NEO":
-            if currencyName == "EUR" {
-                value = crypto.NEO.EUR as NSNumber
-                return value
-            } else {
-                value = crypto.NEO.USD as NSNumber
-                return value
-            }
-        default:
-            value = -1
-            return value
-        }
+    
+    func numberOfRows(currenciesDictionary: [CellName]?) -> Int {
+        return currenciesDictionary?.count ?? 0
     }
-    
-    
 }
 // MARK: struct CellName: Display cryptocurrency name from JSON Decoder
-public struct CellName: Decodable {
-    var BTC: CellCurrency
-    let ETH: CellCurrency
-    let LTC: CellCurrency
-    let XRP: CellCurrency
-    let XMR: CellCurrency
-    let NEO: CellCurrency
+public struct CellName: Codable {
+    let id: String?
+    let name: String?
+    let symbol: String?
+    let rank: String?
+    let priceUSD: String?
+    let priceBTC: String?
+    let hVolumeUSD: String?
+    let marketCapUSD: String?
+    let availableSupply: String?
+    let totalSupply: String?
+    let maxSupply: String?
+    let precentChange1h: String?
+    let percentChange24h: String?
+    let percentChange7d: String?
+    let lastUpdated: String?
+    let priceEUR: String?
+    let hVolumeEUR: String?
+    let marketCapEUR: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case symbol
+        case rank
+        case priceUSD = "price_usd"
+        case priceBTC = "price_btc"
+        case hVolumeUSD = "24h_volume_usd"
+        case marketCapUSD = "market_cap_usd"
+        case availableSupply = "available_supply"
+        case totalSupply = "total_supply"
+        case maxSupply = "max_supply"
+        case precentChange1h = "percent_change_1h"
+        case percentChange24h = "percent_change_24h"
+        case percentChange7d = "percent_change_7d"
+        case lastUpdated = "last_updated"
+        case priceEUR = "price_eur"
+        case hVolumeEUR = "24h_volume_eur"
+        case marketCapEUR = "market_cap_eur"
+    }
 }
-// MARK: struct CellCurrency: Display price in USD and EUR
-public struct CellCurrency: Decodable {
-    let USD: Double
-    let EUR: Double
-}
-// MARK: extension NSNumber: format JSON value to currency
+
 extension NSNumber {
     var formattedCurrencyStringUSD: String? {
         let formatter = NumberFormatter()
@@ -128,47 +105,5 @@ extension NSNumber {
         return formatter.string(from: self)
     }
 }
-// MARK: enum CurrencyTypeEnum: String names and images of cryptocurrencies
-enum CurrencyTypeEnum: String {
-    case btc = "BTC",
-    eth = "ETH",
-    ltc = "LTC",
-    xrp = "XRP",
-    xmr = "XMR",
-    neo = "NEO"
-    
-    var name: String {
-        switch self {
-        case .btc:
-            return "Bitcoin"
-        case .eth:
-            return "Ethereum"
-        case .ltc:
-            return "Litecoin"
-        case .xrp:
-            return "Ripple"
-        case .xmr:
-            return "Monero"
-        case .neo:
-            return "Neo"
-        }
-    }
-    
-    var image: UIImage {
-        switch self {
-        case .btc:
-            return #imageLiteral(resourceName: "Bitcoin")
-        case .eth:
-            return #imageLiteral(resourceName: "Ethereum")
-        case .ltc:
-            return #imageLiteral(resourceName: "Litecoin")
-        case .xrp:
-            return #imageLiteral(resourceName: "Ripple")
-        case .xmr:
-            return #imageLiteral(resourceName: "Monero")
-        case .neo:
-            return #imageLiteral(resourceName: "NEO")
-        }
-    }
-}
+
 
