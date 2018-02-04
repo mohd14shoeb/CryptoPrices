@@ -6,16 +6,16 @@
 //  Copyright © 2018 Maxwell Stein. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SwiftyJSON
 
 class CurrencyType {
     var currenciesDictionary: [CellName]?
     // MARK: func getValue: Get USD or EUR price of cryptocurrencies
-    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath) {
+    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath, completion: @escaping (_ string: String?) -> Void) {
         let apiString = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR"
         guard let apiURL = URL(string: apiString) else {
+            completion(nil)
             print("URL Invalid")
             return
         }
@@ -23,21 +23,54 @@ class CurrencyType {
         let request = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             guard let data = data else {
                 print(error?.localizedDescription ?? "")
+                completion(nil)
                 return
             }
             do {
                 let json = try JSONDecoder().decode([CellName].self, from: data)
-                print(json[0])
                 self.currenciesDictionary = json
                 DispatchQueue.main.async {
                     name.text = json[indexPath.row].name
                     symbol.text = json[indexPath.row].symbol
                     price.text = json[indexPath.row].priceUSD
                     priceChange.text = json[indexPath.row].precentChange1h
+                    guard let nameString = json[indexPath.row].symbol else {
+                        completion(nil)
+                        return
+                    }
+                    completion(nameString)
                 }
                 
             } catch {
+                completion(nil)
                 print(error.localizedDescription)
+                return
+            }
+        }
+        request.resume()
+    }
+    
+    func getImages() {
+        let apiString = "https://min-api.cryptocompare.com/data/all/coinlist"
+        guard let apiURL = URL(string: apiString) else {
+            print("URL Invalid")
+            return
+        }
+        
+        let request = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
+            guard let data = data else {
+                print(error?.localizedDescription as Any)
+                return
+            }
+            
+            do {
+                let JSONArray = try JSON(data: data)
+                let defaults = UserDefaults.standard
+                let response = JSON(JSONArray)
+                defaults.setValue(response.rawString(), forKey: "JSONArray")
+                print("saved")
+                } catch {
+                    print(error.localizedDescription)
             }
         }
         request.resume()

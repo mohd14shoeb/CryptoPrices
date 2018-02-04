@@ -1,6 +1,0 @@
-framework module Pods_BTCWidget {
-  umbrella header "Pods-BTCWidget-umbrella.h"
-
-  export *
-  module * { export * }
-}

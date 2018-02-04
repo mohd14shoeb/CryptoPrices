@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currency: String!
+    var name: String?
     let defaults = UserDefaults.standard
     var currenciesDictionary = [CellName]()
+    var selectedCurrencies = ["BTC", "LTC", "XRP", "NEO", "XMR", "ETH", "007"]
     
     let refreshControl = UIRefreshControl()
     let reuseIdentifier = String(describing: CryptoPricesTableViewCell.self)
@@ -132,7 +135,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath)
+//        let name = CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath)
+        
+        CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath) { (value) in
+            self.name = value!
+            let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
+            let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+            do {
+                let json = try JSON(data: data!)
+                let baseImageURL = json["BaseImageUrl"]
+                let currencyName = json["Data"][self.name!]["ImageUrl"]
+                let URLString = "\(baseImageURL)\(currencyName)"
+                print(URLString)
+                let url = URL(string: URLString)
+                do {
+                    let data = try Data(contentsOf: url!)
+                    DispatchQueue.main.async {
+                        guard let image = UIImage(data: data) else {
+                            return
+                        }
+                        cell.cryptoCurrencyImageView.image = image
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+//        let imageURL = data["\("BTC")"]["ImageUrl"]
+//        let URLString = "\(baseImageURL)\(imageURL)"
+//        let Url = URL(string: URLString)
+//        let imageData = try? Data(contentsOf: Url!)
+        
         return cell
     }
     

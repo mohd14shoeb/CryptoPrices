@@ -23,7 +23,7 @@ class CryptoPricesTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.backgroundColor = UIColor.lightGray
-        cryptoCurrencyImageView.backgroundColor = UIColor.lightGray
+        cryptoCurrencyImageView.backgroundColor = UIColor.clear
 
         nameLabel.font = nameLabel.font.withSize(16)
 
