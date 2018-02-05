@@ -52,17 +52,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return label
     }()
     
+    var addNewCryptoCoinButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         getDefaults()
         setupViews()
+        
+        navigationItem.title = "Cryptocurrency Prices"
+        
+        addNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCryptoCoin))
+        navigationItem.rightBarButtonItem = addNewCryptoCoinButton
+        
+        getDefaults()
+        setupViews()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc func addNewCryptoCoin() {
+        let newViewController = NewViewController()
+        let navController = UINavigationController(rootViewController: newViewController)
+        navController.modalPresentationStyle = .overCurrentContext
+        //        newViewController.modalTransitionStyle = .flipHorizontal
+        self.present(navController, animated: false, completion: nil)
     }
+    
     // MARK: func setupViews: Setup views
     func setupViews() {
         if #available(iOS 10.0, *) {
@@ -158,7 +173,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let currencyName = json["Data"][value]["ImageUrl"]
                 let URLString = "\(baseImageURL)\(currencyName)"
 //                print(URLString)
-                self.setImage(urlString: URLString, cell: cell)
+                self.setImage(urlString: URLString, imageView: cell.cryptoCurrencyImageView)
             } catch {
                 print(error.localizedDescription)
             }
@@ -166,23 +181,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    func setImage(urlString: String, cell: CryptoPricesTableViewCell) {
+    func setImage(urlString: String, imageView: UIImageView) {
         guard let url = URL(string: urlString) else { return }
         DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            guard let downloadedImage = UIImage(data: data) else { return }
-            let imageData: NSData = UIImagePNGRepresentation(downloadedImage)! as NSData
             if let defaults = UserDefaults.standard.object(forKey: urlString) {
-                let data = defaults as! NSData
-                let savedImage = UIImage(data: data as Data)
+                let savedImageData = defaults as! NSData
                 DispatchQueue.main.async {
-                    cell.cryptoCurrencyImageView.image = savedImage
+                    let savedImage = UIImage(data: savedImageData as Data)
+                    imageView.image = savedImage
                 }
-                
             } else {
-                UserDefaults.standard.set(imageData, forKey: urlString)
                 DispatchQueue.main.async {
-                    cell.cryptoCurrencyImageView.image = downloadedImage
+                    guard let data = try? Data(contentsOf: url) else { return }
+                    guard let downloadedImage = UIImage(data: data) else { return }
+                    let imageData: NSData = UIImagePNGRepresentation(downloadedImage)! as NSData
+                    UserDefaults.standard.set(imageData, forKey: urlString)
+                    imageView.image = downloadedImage
                 }
             }
             //                        cell.cryptoCurrencyImageView.image =
@@ -229,9 +243,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 }
 
 extension UIImageView {
-    func loadImageUsingCacheWithURLString(urlString: String) {
-        
-        
+    public func imageFromUrl(urlString: String) {
+        if let url = URL(string: urlString) {
+            let request = URLRequest(url: url)
+//            URLSession.dataTask(url)
+            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
+                (response, data, error) -> Void in
+                if let imageData = data as NSData? {
+                    self.image = UIImage(data: imageData as Data)
+                }
+            }
+        }
     }
 }
 

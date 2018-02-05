@@ -19,8 +19,7 @@ class CurrencyType {
             completion(nil)
             print("URL Invalid")
             return
-        }
-        
+        }        
         let request = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             guard let data = data else {
                 print(error?.localizedDescription ?? "")
