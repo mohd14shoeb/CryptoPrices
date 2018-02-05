@@ -8,11 +8,13 @@
 
 import UIKit
 import SwiftyJSON
+import Kingfisher
+
+let cache = NSCache<AnyObject, AnyObject>()
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currency: String!
-    var name: String?
     let defaults = UserDefaults.standard
     var currenciesDictionary = [CellName]()
     var selectedCurrencies = ["BTC", "LTC", "XRP", "NEO", "XMR", "ETH", "007"]
@@ -135,41 +137,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-//        let name = CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath)
-        
         CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath) { (value) in
-            self.name = value!
             let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
             let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
             do {
                 let json = try JSON(data: data!)
                 let baseImageURL = json["BaseImageUrl"]
-                let currencyName = json["Data"][self.name!]["ImageUrl"]
+                let currencyName = json["Data"][value!]["ImageUrl"]
                 let URLString = "\(baseImageURL)\(currencyName)"
                 print(URLString)
+//                if let cachedImage = cache.object(forKey: URLString as AnyObject) as? UIImage {
+//                    cell.cryptoCurrencyImageView.image = cachedImage as UIImage
+//                    return
+//                }
                 let url = URL(string: URLString)
-                do {
-                    let data = try Data(contentsOf: url!)
-                    DispatchQueue.main.async {
-                        guard let image = UIImage(data: data) else {
-                            return
-                        }
-                        cell.cryptoCurrencyImageView.image = image
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
+                cell.cryptoCurrencyImageView.kf.setImage(with: url)
+//                URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//                    if error != nil {
+//                        print(error?.localizedDescription as Any)
+//                        return
+//                    }
+//                    DispatchQueue.main.async {
+//                        let downloadedImage = UIImage(data: data!)
+//                        cache.setObject(downloadedImage!, forKey: (URLString as AnyObject) as! UIImage)
+//                    }
+//                }
             } catch {
                 print(error.localizedDescription)
             }
         }
-        
-        
-//        let imageURL = data["\("BTC")"]["ImageUrl"]
-//        let URLString = "\(baseImageURL)\(imageURL)"
-//        let Url = URL(string: URLString)
-//        let imageData = try? Data(contentsOf: Url!)
-        
         return cell
     }
     
@@ -208,6 +204,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+}
+
+extension UIImageView {
+    func loadImageUsingCacheWithURLString(urlString: String) {
+        
+        
     }
 }
 

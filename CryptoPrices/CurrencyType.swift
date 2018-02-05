@@ -69,8 +69,8 @@ class CurrencyType {
                 let response = JSON(JSONArray)
                 defaults.setValue(response.rawString(), forKey: "JSONArray")
                 print("saved")
-                } catch {
-                    print(error.localizedDescription)
+            } catch {
+                print(error.localizedDescription)
             }
         }
         request.resume()
