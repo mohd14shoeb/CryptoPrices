@@ -10,4 +10,5 @@ target 'CryptoPrices' do
   pod 'PureLayout', '~> 2.0.5'
   pod 'SwiftyJSON'
   pod 'Kingfisher', '~> 4.0'
+  pod 'SQLite.swift', '~> 0.11.4'
 end

@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Kingfisher
+import SQLite3
 
 let cache = NSCache<AnyObject, AnyObject>()
 
@@ -132,41 +133,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
+        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        do {
+            let json = try JSON(data: data!)
+            let count = json["Data"].count
+            return count
+        } catch {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath) { (value) in
+        CurrencyType().getObjects(name: cell.nameLabel, symbol: cell.symbolLabel, price: cell.priceLabel, priceChange: cell.priceChangeLabel, indexPath: indexPath, chart: cell.priceLineChartView) { (value) in
             let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
             let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
             do {
+                guard let value = value else {
+                    return
+                }
                 let json = try JSON(data: data!)
                 let baseImageURL = json["BaseImageUrl"]
-                let currencyName = json["Data"][value!]["ImageUrl"]
+                let currencyName = json["Data"][value]["ImageUrl"]
                 let URLString = "\(baseImageURL)\(currencyName)"
-                print(URLString)
-//                if let cachedImage = cache.object(forKey: URLString as AnyObject) as? UIImage {
-//                    cell.cryptoCurrencyImageView.image = cachedImage as UIImage
-//                    return
-//                }
-                let url = URL(string: URLString)
-                cell.cryptoCurrencyImageView.kf.setImage(with: url)
-//                URLSession.shared.dataTask(with: url!) { (data, response, error) in
-//                    if error != nil {
-//                        print(error?.localizedDescription as Any)
-//                        return
-//                    }
-//                    DispatchQueue.main.async {
-//                        let downloadedImage = UIImage(data: data!)
-//                        cache.setObject(downloadedImage!, forKey: (URLString as AnyObject) as! UIImage)
-//                    }
-//                }
+//                print(URLString)
+                self.setImage(urlString: URLString, cell: cell)
             } catch {
                 print(error.localizedDescription)
             }
         }
         return cell
+    }
+    
+    func setImage(urlString: String, cell: CryptoPricesTableViewCell) {
+        guard let url = URL(string: urlString) else { return }
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            guard let downloadedImage = UIImage(data: data) else { return }
+            let imageData: NSData = UIImagePNGRepresentation(downloadedImage)! as NSData
+            if let defaults = UserDefaults.standard.object(forKey: urlString) {
+                let data = defaults as! NSData
+                let savedImage = UIImage(data: data as Data)
+                DispatchQueue.main.async {
+                    cell.cryptoCurrencyImageView.image = savedImage
+                }
+                
+            } else {
+                UserDefaults.standard.set(imageData, forKey: urlString)
+                DispatchQueue.main.async {
+                    cell.cryptoCurrencyImageView.image = downloadedImage
+                }
+            }
+            //                        cell.cryptoCurrencyImageView.image =
+            //                    cell.cryptoCurrencyImageView.kf.setImage(with: url)
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

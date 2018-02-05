@@ -8,11 +8,12 @@
 
 import UIKit
 import SwiftyJSON
+import Charts
 
 class CurrencyType {
     var currenciesDictionary: [CellName]?
     // MARK: func getValue: Get USD or EUR price of cryptocurrencies
-    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath, completion: @escaping (_ string: String?) -> Void) {
+    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath, chart: LineChartView, completion: @escaping (_ string: String?) -> Void) {
         let apiString = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR"
         guard let apiURL = URL(string: apiString) else {
             completion(nil)
