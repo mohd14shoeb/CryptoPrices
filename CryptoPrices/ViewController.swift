@@ -149,15 +149,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
-        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        do {
-            let json = try JSON(data: data!)
-            let count = json["Data"].count
-            return count
-        } catch {
-            return 0
-        }
+//        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
+//        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+//        do {
+//            let json = try JSON(data: data!)
+//            let count = json["Data"].count
+//            return count
+//        } catch {
+//            return 0
+//        }
+        let name = Storage.retrieve("CellName.json", from: .documents, as: [CellName].self)
+        return name.count
         //        return 15
     }
     
