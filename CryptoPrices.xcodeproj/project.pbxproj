@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E2FC3DF202A43CE00CA392D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FC3DE202A43CE00CA392D /* Storage.swift */; };
+		0E2FC3E1202A5E4400CA392D /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FC3E0202A5E4400CA392D /* TableViewModel.swift */; };
 		0E3A48712027DECC008465A3 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3A48722027DECC008465A3 /* SwiftyJSON.framework */; };
 		0E3A48752027DED3008465A3 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3A48762027DED3008465A3 /* Charts.framework */; };
 		0E3A48772027DED6008465A3 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3A48782027DED6008465A3 /* PureLayout.framework */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		0E2FC3DE202A43CE00CA392D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		0E2FC3E0202A5E4400CA392D /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		0E3A48722027DECC008465A3 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E3A48742027DED0008465A3 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E3A48762027DED3008465A3 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 				0EA9916720183EC600F1A271 /* LaunchScreen.storyboard */,
 				0EA9916A20183EC600F1A271 /* Info.plist */,
 				0E43981D2023B00300B744AE /* CryptoPricesTableViewCell.swift */,
+				0E2FC3E0202A5E4400CA392D /* TableViewModel.swift */,
 				0EA9917220184BD100F1A271 /* CurrencyType.swift */,
 				0E2FC3DE202A43CE00CA392D /* Storage.swift */,
 				0E3A487D2028B63D008465A3 /* NewViewController.swift */,
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EA9916120183EC600F1A271 /* ViewController.swift in Sources */,
+				0E2FC3E1202A5E4400CA392D /* TableViewModel.swift in Sources */,
 				0EA9915F20183EC600F1A271 /* AppDelegate.swift in Sources */,
 				0E3A487E2028B63E008465A3 /* NewViewController.swift in Sources */,
 				0EA9917320184BD200F1A271 /* CurrencyType.swift in Sources */,

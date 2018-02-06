@@ -149,62 +149,66 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
-//        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-//        do {
-//            let json = try JSON(data: data!)
-//            let count = json["Data"].count
-//            return count
-//        } catch {
-//            return 0
-//        }
-        return 15
+        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
+        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        do {
+            let json = try JSON(data: data!)
+            let count = json["Data"].count
+            return count
+        } catch {
+            return 0
+        }
+        //        return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        guard let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as? String else { return cell} //images
-        let dataFromDisk = Storage.retrieve("CellName.json", from: .documents, as: [CellName].self)
-        cell.nameLabel.text = dataFromDisk[indexPath.row].name
-        cell.symbolLabel.text = dataFromDisk[indexPath.row].symbol
-        cell.priceLabel.text = dataFromDisk[indexPath.row].priceUSD
-        cell.priceChangeLabel.text = dataFromDisk[indexPath.row].precentChange1h
-
-        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        do {
-            let jsonData = try JSON(data: data!)
-            DispatchQueue.global().async {
+        cell.queue.cancelAllOperations()
+        let operation: BlockOperation = BlockOperation()
+        operation.addExecutionBlock {
+            guard let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as? String else { return } //images
+            let dataFromDisk = Storage.retrieve("CellName.json", from: .documents, as: [CellName].self)
+            DispatchQueue.main.async {
+                cell.nameLabel.text = dataFromDisk[indexPath.row].name
+                cell.symbolLabel.text = dataFromDisk[indexPath.row].symbol
+                cell.priceLabel.text = dataFromDisk[indexPath.row].priceUSD
+                cell.priceChangeLabel.text = dataFromDisk[indexPath.row].precentChange1h
+            }
+            let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+            do {
+                let jsonData = try JSON(data: data!)
+                
                 let baseImageURL = jsonData["BaseImageUrl"]
                 guard let symbol = dataFromDisk[indexPath.row].symbol else { return }
                 let currencyName = jsonData["Data"][symbol]["ImageUrl"]
                 let URLString = "\(baseImageURL)\(currencyName)"
-                self.setImage(urlString: URLString, imageView: cell.cryptoCurrencyImageView)
-                print(URLString)
+                DispatchQueue.global().async {
+                    self.setImage(urlString: URLString, imageView: cell.cryptoCurrencyImageView)
+                    print(URLString)
+                }
+            } catch {
+                print(error.localizedDescription)
             }
-
-
-
-        } catch {
-            print(error.localizedDescription)
         }
+        cell.queue.addOperation(operation)
         return cell
     }
     
     func setImage(urlString: String, imageView: UIImageView) {
-            if let defaults = UserDefaults.standard.object(forKey: urlString) {
-                let savedImageData = defaults as! NSData
-                DispatchQueue.main.async {
-                    let savedImage = UIImage(data: savedImageData as Data)
-                    imageView.image = savedImage
-                }
-            } else {
-                    imageView.imageFromUrl(urlString: urlString)
+        if let defaults = UserDefaults.standard.object(forKey: urlString) {
+            let savedImageData = defaults as! NSData
+            DispatchQueue.main.async {
+                let savedImage = UIImage(data: savedImageData as Data)
+                imageView.image = savedImage
             }
+        } else {
+            imageView.imageFromUrl(urlString: urlString)
+        }
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Cryptocurrency Prices"
-//    }
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return "Cryptocurrency Prices"
+    //    }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let dateFormatter = DateFormatter()
@@ -215,15 +219,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return "Updated on " + dateString
     }
     
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        let title = UILabel()
-//        title.font = UIFont(name: "HelveticaNeue-Light", size: 20)
-//
-//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-//        header.contentView.backgroundColor = UIColor.lightGray
-//        header.textLabel?.font = title.font
-//        header.textLabel?.textAlignment = .left
-//    }
+    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //        let title = UILabel()
+    //        title.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+    //
+    //        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+    //        header.contentView.backgroundColor = UIColor.lightGray
+    //        header.textLabel?.font = title.font
+    //        header.textLabel?.textAlignment = .left
+    //    }
     
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let title = UILabel()
@@ -244,17 +248,17 @@ extension UIImageView {
     public func imageFromUrl(urlString: String) {
         if let url = URL(string: urlString) {
             self.kf.setImage(with: url)
-//            let request = URLRequest(url: url)
-//            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
-//                (response, data, error) -> Void in
-//                if let imageData = data as NSData? {
-//                    DispatchQueue.main.async {
-//                        self.image = UIImage(data: imageData as Data)
-//                        UserDefaults.standard.set(imageData as NSData, forKey: urlString)
-//                    }
-//
-//                }
-//            }
+            //            let request = URLRequest(url: url)
+            //            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
+            //                (response, data, error) -> Void in
+            //                if let imageData = data as NSData? {
+            //                    DispatchQueue.main.async {
+            //                        self.image = UIImage(data: imageData as Data)
+            //                        UserDefaults.standard.set(imageData as NSData, forKey: urlString)
+            //                    }
+            //
+            //                }
+            //            }
         }
     }
 }

@@ -18,6 +18,7 @@ class CryptoPricesTableViewCell: UITableViewCell {
     var priceChangeLabel = UILabel()
     
     let priceLineChartView = LineChartView()
+    let queue = SerialOperationQueue()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
