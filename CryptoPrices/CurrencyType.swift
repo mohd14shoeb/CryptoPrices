@@ -13,36 +13,21 @@ import Charts
 class CurrencyType {
     var currenciesDictionary: [CellName]?
     // MARK: func getValue: Get USD or EUR price of cryptocurrencies
-    func getObjects(name: UILabel, symbol: UILabel, price: UILabel, priceChange: UILabel, indexPath: IndexPath, chart: LineChartView, completion: @escaping (_ string: String?) -> Void) {
+    func getObjects() {
         let apiString = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR"
         guard let apiURL = URL(string: apiString) else {
-            completion(nil)
             print("URL Invalid")
             return
         }        
         let request = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             guard let data = data else {
                 print(error?.localizedDescription ?? "")
-                completion(nil)
                 return
             }
             do {
-                let json = try JSONDecoder().decode([CellName].self, from: data)
-                self.currenciesDictionary = json
-                DispatchQueue.main.async {
-                    name.text = json[indexPath.row].name
-                    symbol.text = json[indexPath.row].symbol
-                    price.text = json[indexPath.row].priceUSD
-                    priceChange.text = json[indexPath.row].precentChange1h
-                    guard let nameString = json[indexPath.row].symbol else {
-                        completion(nil)
-                        return
-                    }
-                    completion(nameString)
-                }
-                
+                let json: [CellName] = try JSONDecoder().decode([CellName].self, from: data)
+                Storage.store(json, to: .documents, as: "CellName.json")
             } catch {
-                completion(nil)
                 print(error.localizedDescription)
                 return
             }
