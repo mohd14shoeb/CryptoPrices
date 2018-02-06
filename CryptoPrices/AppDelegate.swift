@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         
         application.statusBarStyle = .lightContent
+//        CurrencyType().getImages()
         return true
     }
 

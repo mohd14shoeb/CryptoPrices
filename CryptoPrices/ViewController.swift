@@ -149,15 +149,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
-        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        do {
-            let json = try JSON(data: data!)
-            let count = json["Data"].count
-            return count
-        } catch {
-            return 0
-        }
+//        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
+//        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
+//        do {
+//            let json = try JSON(data: data!)
+//            let count = json["Data"].count
+//            return count
+//        } catch {
+//            return 0
+//        }
+        return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,7 +173,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
         do {
             let jsonData = try JSON(data: data!)
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 let baseImageURL = jsonData["BaseImageUrl"]
                 guard let symbol = dataFromDisk[indexPath.row].symbol else { return }
                 let currencyName = jsonData["Data"][symbol]["ImageUrl"]
@@ -180,9 +181,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.setImage(urlString: URLString, imageView: cell.cryptoCurrencyImageView)
                 print(URLString)
             }
-            
-            
-            
+
+
+
         } catch {
             print(error.localizedDescription)
         }
@@ -201,9 +202,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Cryptocurrency Prices"
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "Cryptocurrency Prices"
+//    }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let dateFormatter = DateFormatter()
@@ -214,15 +215,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return "Updated on " + dateString
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let title = UILabel()
-        title.font = UIFont(name: "HelveticaNeue-Light", size: 20)
-        
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor.lightGray
-        header.textLabel?.font = title.font
-        header.textLabel?.textAlignment = .left
-    }
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let title = UILabel()
+//        title.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+//
+//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//        header.contentView.backgroundColor = UIColor.lightGray
+//        header.textLabel?.font = title.font
+//        header.textLabel?.textAlignment = .left
+//    }
     
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let title = UILabel()
@@ -242,16 +243,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 extension UIImageView {
     public func imageFromUrl(urlString: String) {
         if let url = URL(string: urlString) {
-            let request = URLRequest(url: url)
-            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
-                (response, data, error) -> Void in
-                if let imageData = data as NSData? {
-                    DispatchQueue.main.async {
-                        self.image = UIImage(data: imageData as Data)
-                    }
-                    
-                }
-            }
+            self.kf.setImage(with: url)
+//            let request = URLRequest(url: url)
+//            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
+//                (response, data, error) -> Void in
+//                if let imageData = data as NSData? {
+//                    DispatchQueue.main.async {
+//                        self.image = UIImage(data: imageData as Data)
+//                        UserDefaults.standard.set(imageData as NSData, forKey: urlString)
+//                    }
+//
+//                }
+//            }
         }
     }
 }

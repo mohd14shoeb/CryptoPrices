@@ -52,6 +52,7 @@ class CurrencyType {
                 let JSONArray = try JSON(data: data)
                 let defaults = UserDefaults.standard
                 let response = JSON(JSONArray)
+                
                 defaults.setValue(response.rawString(), forKey: "JSONArray")
                 print("saved")
             } catch {
