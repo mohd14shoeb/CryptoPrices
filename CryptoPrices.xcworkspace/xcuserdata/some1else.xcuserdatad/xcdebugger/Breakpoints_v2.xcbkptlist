@@ -26,12 +26,12 @@
                   moduleName = "SwiftyJSON"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/some1else/Desktop/xCode%20Projects/CryptoPrices/Pods/SwiftyJSON/Source/SwiftyJSON.swift"
-                  timestampString = "539650085.5573471"
+                  timestampString = "539752807.693725"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "SwiftyJSON"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/some1else/Desktop/xCode%20Projects/CryptoPrices/Pods/SwiftyJSON/Source/SwiftyJSON.swift"
-                  timestampString = "539650085.5595109"
+                  timestampString = "539752807.696517"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "4">
                </Location>
             </Locations>
          </BreakpointContent>
