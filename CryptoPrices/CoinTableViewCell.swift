@@ -1,5 +1,5 @@
 //
-//  CryptoPricesTableViewCell.swift
+//  CoinTableViewCell.swift
 //  CryptoPrices
 //
 //  Created by Dejan Ribnikar on 01/02/2018.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Charts
 
-class CryptoPricesTableViewCell: UITableViewCell {
+class CoinTableViewCell: UITableViewCell {
     var cryptoCurrencyImageView = UIImageView()
     var priceLabel = UILabel()
     var symbolLabel = UILabel()

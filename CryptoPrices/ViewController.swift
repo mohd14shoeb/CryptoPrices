@@ -15,13 +15,14 @@ let cache = NSCache<AnyObject, AnyObject>()
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private var viewModel: CoinViewModel!
+    private var api = API()
+    
     var currency: String!
     let defaults = UserDefaults.standard
-    var currenciesDictionary = [CellName]()
-    var selectedCurrencies = ["BTC", "LTC", "XRP", "NEO", "XMR", "ETH", "007"]
     
     let refreshControl = UIRefreshControl()
-    let reuseIdentifier = String(describing: CryptoPricesTableViewCell.self)
+    let reuseIdentifier = String(describing: CoinTableViewCell.self)
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -68,7 +69,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         getDefaults()
         setupViews()
-        CurrencyType().getObjects()
+        viewModel = CoinViewModel(API: api) {
+            self.tableView.reloadData()
+        }
     }
     
     @objc func addNewCryptoCoin() {
@@ -149,51 +152,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     // MARK: func tableView: Set tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as! String
-//        let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-//        do {
-//            let json = try JSON(data: data!)
-//            let count = json["Data"].count
-//            return count
-//        } catch {
-//            return 0
-//        }
-        let name = Storage.retrieve("CellName.json", from: .documents, as: [CellName].self)
-        return name.count
-        //        return 15
+        return viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CryptoPricesTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        cell.queue.cancelAllOperations()
-        let operation: BlockOperation = BlockOperation()
-        operation.addExecutionBlock {
-            guard let JSONArray = UserDefaults.standard.value(forKey: "JSONArray") as? String else { return } //images
-            let dataFromDisk = Storage.retrieve("CellName.json", from: .documents, as: [CellName].self)
-            DispatchQueue.main.async {
-                cell.nameLabel.text = dataFromDisk[indexPath.row].name
-                cell.symbolLabel.text = dataFromDisk[indexPath.row].symbol
-                cell.priceLabel.text = dataFromDisk[indexPath.row].priceUSD
-                cell.priceChangeLabel.text = dataFromDisk[indexPath.row].precentChange1h
-            }
-            let data = JSONArray.data(using: String.Encoding.utf8, allowLossyConversion: false)
-            do {
-                let jsonData = try JSON(data: data!)
-                
-                let baseImageURL = jsonData["BaseImageUrl"]
-                guard let symbol = dataFromDisk[indexPath.row].symbol else { return }
-                let currencyName = jsonData["Data"][symbol]["ImageUrl"]
-                let URLString = "\(baseImageURL)\(currencyName)"
-                DispatchQueue.global().async {
-                    self.setImage(urlString: URLString, imageView: cell.cryptoCurrencyImageView)
-                    print(URLString)
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        cell.queue.addOperation(operation)
-        return cell
+        return viewModel.cellForRowAt(indexPath: indexPath)
     }
     
     func setImage(urlString: String, imageView: UIImageView) {
@@ -250,17 +213,6 @@ extension UIImageView {
     public func imageFromUrl(urlString: String) {
         if let url = URL(string: urlString) {
             self.kf.setImage(with: url)
-            //            let request = URLRequest(url: url)
-            //            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {
-            //                (response, data, error) -> Void in
-            //                if let imageData = data as NSData? {
-            //                    DispatchQueue.main.async {
-            //                        self.image = UIImage(data: imageData as Data)
-            //                        UserDefaults.standard.set(imageData as NSData, forKey: urlString)
-            //                    }
-            //
-            //                }
-            //            }
         }
     }
 }
