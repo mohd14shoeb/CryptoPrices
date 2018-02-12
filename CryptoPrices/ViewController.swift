@@ -76,15 +76,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func setupViews() {
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(ViewController().refreshPrices), for: .valueChanged)
+        
+        view.backgroundColor = UIColor.lightGray
+        view.addSubview(currencySwitch)
+        currencySwitch.translatesAutoresizingMaskIntoConstraints = false
+        currencySwitch.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        currencySwitch.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        currencySwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        currencySwitch.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        currencySwitch.addTarget(self, action: #selector(switcher), for: .valueChanged)
+        
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: currencySwitch.bottomAnchor, constant: 8).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
     @objc func switcher() {
         switch currencySwitch.selectedSegmentIndex {
         case 1:
             currency = "USD"
             UserDefaults.standard.set(currency, forKey: "currency")
             
-            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let range = NSMakeRange(0, tableView.numberOfSections)
             let sections = NSIndexSet(indexesIn: range)
-            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+            tableView.reloadSections(sections as IndexSet, with: .automatic)
             
         default:
             currency = "EUR"
@@ -110,33 +135,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             currencySwitch.selectedSegmentIndex = 1
         }
     }
-    
-    func setupViews() {
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = refreshControl
-        } else {
-            tableView.addSubview(refreshControl)
-        }
-        refreshControl.addTarget(self, action: #selector(refreshPrices), for: .valueChanged)
-        
-        view.backgroundColor = UIColor.lightGray
-        view.addSubview(currencySwitch)
-        currencySwitch.translatesAutoresizingMaskIntoConstraints = false
-        currencySwitch.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
-        currencySwitch.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        currencySwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        currencySwitch.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        currencySwitch.addTarget(self, action: #selector(switcher), for: .valueChanged)
-        
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: currencySwitch.bottomAnchor, constant: 8).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    }
-    
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection()

@@ -10,25 +10,23 @@ import UIKit
 
 class CoinViewModel {    
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
-    var currency: String!
     private var vc = ViewController()
     
     var name: String?
     var symbol: String?
-    var price: String?
+    var priceUSD: String?
+    var priceEUR: String?
     var priceChange: String?
     var coins =  [CoinViewModel]()
     
+    let currencySwitch = ViewController().currencySwitch
+    let tableView = ViewController().tableView
+    
     init(coin: Coin) {
-        let currency = ViewController().currency
         self.name = coin.name
         self.symbol = coin.symbol
-        if currency == "USD" {
-            self.price = coin.priceUSD
-        } else {
-            self.price = coin.priceEUR
-        }
-        
+        self.priceUSD = coin.priceUSD
+        self.priceEUR = coin.priceEUR
         self.priceChange = coin.precentChange1h
         print(coin.symbol!.lowercased())
     }
@@ -50,19 +48,23 @@ class CoinViewModel {
         let cell = CoinTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
         let coin = coins[indexPath.row]
         cell.nameLabel.text = coin.name
-        cell.symbolLabel.text = coin.symbol
-        cell.priceChangeLabel.text = coin.priceChange
+        cell.symbolLabel.text = coin.symbol        
         guard let priceChange = coin.priceChange else { return cell }
         if priceChange.contains("-") {
+            cell.priceChangeLabel.text = priceChange
             cell.priceChangeLabel.layer.backgroundColor = UIColor.red.cgColor
         } else {
+            cell.priceChangeLabel.text = "+\(priceChange)"
             cell.priceChangeLabel.layer.backgroundColor = UIColor.green.cgColor
         }
-        guard let price = coin.price else { return cell }
-        let formattedPrice = NumberFormatter().number(from: price)
+
         if currency == "USD" {
+            guard let price = coin.priceUSD else { return cell }
+            let formattedPrice = NumberFormatter().number(from: price)
             cell.priceLabel.text = formattedPrice?.formattedCurrencyStringUSD
         } else {
+            guard let price = coin.priceEUR else { return cell }
+            let formattedPrice = NumberFormatter().number(from: price)
             cell.priceLabel.text = formattedPrice?.formattedCurrencyStringEUR
         }
         guard let symbol = coin.symbol else { return cell }
@@ -89,6 +91,10 @@ class CoinViewModel {
         let dateString = dateFormatter.string(from: date)
         return "Updated on " + dateString
     }
+    
+    
+    
+
 }
 
 extension NSNumber {
