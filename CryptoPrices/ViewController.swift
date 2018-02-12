@@ -17,9 +17,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private var viewModel: CoinViewModel!
     private var api = API()
-    
     var currency: String!
-    let defaults = UserDefaults.standard
+
     
     let refreshControl = UIRefreshControl()
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
@@ -46,13 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return currencySwitch
     }()
     
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.text = "Test"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     var addNewCryptoCoinButton: UIBarButtonItem!
     var cancelButton: UIBarButtonItem!
     
@@ -60,29 +52,68 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         getDefaults()
+        viewModel = CoinViewModel(API: api) {
+            self.tableView.reloadData()
+        }
         setupViews()
         
         navigationItem.title = "Cryptocurrency Prices"
         
         addNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCryptoCoin))
         navigationItem.rightBarButtonItem = addNewCryptoCoinButton
-        
-        getDefaults()
-        setupViews()
-        viewModel = CoinViewModel(API: api) {
-            self.tableView.reloadData()
-        }
     }
     
     @objc func addNewCryptoCoin() {
         let newViewController = NewViewController()
         let navController = UINavigationController(rootViewController: newViewController)
         navController.modalPresentationStyle = .overCurrentContext
-        //        newViewController.modalTransitionStyle = .flipHorizontal
         self.present(navController, animated: false, completion: nil)
     }
     
-    // MARK: func setupViews: Setup views
+    @objc func refreshPrices() {
+        viewModel = CoinViewModel(API: api) {
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    @objc func switcher() {
+        switch currencySwitch.selectedSegmentIndex {
+        case 1:
+            currency = "USD"
+            UserDefaults.standard.set(currency, forKey: "currency")
+            
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+            
+        default:
+            currency = "EUR"
+            UserDefaults.standard.set(currency, forKey: "currency")
+            
+            let range = NSMakeRange(0, tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            tableView.reloadSections(sections as IndexSet, with: .automatic)
+        }
+    }
+    
+    func getDefaults() {
+        guard let curr = UserDefaults.standard.string(forKey: "currency") else {
+            viewModel.currency = "EUR"
+            self.currencySwitch.selectedSegmentIndex = 0
+            UserDefaults.standard.set(viewModel.currency, forKey: "currency")
+            return
+        }
+        currency = curr
+        if currency == "EUR" {
+            currencySwitch.selectedSegmentIndex = 0
+        } else {
+            currencySwitch.selectedSegmentIndex = 1
+        }
+    }
+    
     func setupViews() {
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
@@ -107,50 +138,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
-    // MARK: func switcher: Set segmented control
-    @objc func switcher() {
-        switch currencySwitch.selectedSegmentIndex {
-        case 1:
-            currency = "USD"
-            defaults.set(currency, forKey: "currency")
-            
-            let range = NSMakeRange(0, tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
-            tableView.reloadSections(sections as IndexSet, with: .automatic)
-            
-        default:
-            currency = "EUR"
-            defaults.set(currency, forKey: "currency")
-            
-            let range = NSMakeRange(0, tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
-            tableView.reloadSections(sections as IndexSet, with: .automatic)
-        }
-    }
-    // MARK: func getDefaults: Get or set user defaults
-    func getDefaults() {
-        guard let curr = defaults.string(forKey: "currency") else {
-            currency = "EUR"
-            currencySwitch.selectedSegmentIndex = 0
-            defaults.set(currency, forKey: "currency")
-            return
-        }
-        currency = curr
-        if currency == "EUR" {
-            currencySwitch.selectedSegmentIndex = 0
-        } else {
-            currencySwitch.selectedSegmentIndex = 1
-        }
-    }
     
-    // MARK: func refreshPrices: Refresh tableView
-    @objc func refreshPrices() {
-        let range = NSMakeRange(0, tableView.numberOfSections)
-        let sections = NSIndexSet(indexesIn: range)
-        tableView.reloadSections(sections as IndexSet, with: .automatic)
-        refreshControl.endRefreshing()
-    }
-    // MARK: func tableView: Set tableView
+    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection()
     }
@@ -159,61 +149,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return viewModel.cellForRowAt(indexPath: indexPath)
     }
     
-    func setImage(urlString: String, imageView: UIImageView) {
-        if let defaults = UserDefaults.standard.object(forKey: urlString) {
-            let savedImageData = defaults as! NSData
-            DispatchQueue.main.async {
-                let savedImage = UIImage(data: savedImageData as Data)
-                imageView.image = savedImage
-            }
-        } else {
-            imageView.imageFromUrl(urlString: urlString)
-        }
-    }
-    
-    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        return "Cryptocurrency Prices"
-    //    }
-    
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .medium
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        return "Updated on " + dateString
+        return viewModel.titleForFooterInSection()
     }
-    
-    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    //        let title = UILabel()
-    //        title.font = UIFont(name: "HelveticaNeue-Light", size: 20)
-    //
-    //        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-    //        header.contentView.backgroundColor = UIColor.lightGray
-    //        header.textLabel?.font = title.font
-    //        header.textLabel?.textAlignment = .left
-    //    }
     
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        let title = UILabel()
-        title.font = UIFont(name: "HelveticaNeue-Thin", size: UIFont.systemFontSize)
-        
-        let footer: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        footer.contentView.backgroundColor = UIColor.lightGray
-        footer.textLabel?.font = title.font
-        footer.textLabel?.textAlignment = .left
+        viewModel.willDisplayFooterView(view: view)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
-    }
-}
-
-extension UIImageView {
-    public func imageFromUrl(urlString: String) {
-        if let url = URL(string: urlString) {
-            self.kf.setImage(with: url)
-        }
     }
 }
 
