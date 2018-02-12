@@ -2,27 +2,16 @@ PODS:
   - Charts (3.0.5):
     - Charts/Core (= 3.0.5)
   - Charts/Core (3.0.5)
-  - Kingfisher (4.6.1)
   - PureLayout (2.0.6)
-  - SQLite.swift (0.11.4):
-    - SQLite.swift/standard (= 0.11.4)
-  - SQLite.swift/standard (0.11.4)
-  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Charts
-  - Kingfisher (~> 4.0)
   - PureLayout (~> 2.0.5)
-  - SQLite.swift (~> 0.11.4)
-  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
-  SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: d26f108294501058b7aa4f7d3f04d31e6a16e38b
+PODFILE CHECKSUM: 945564137abab12f1da03497d7abe509d23ca598
 
 COCOAPODS: 1.4.0

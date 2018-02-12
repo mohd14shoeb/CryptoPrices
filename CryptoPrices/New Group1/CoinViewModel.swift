@@ -20,9 +20,15 @@ class CoinViewModel {
     var coins =  [CoinViewModel]()
     
     init(coin: Coin) {
+        let currency = ViewController().currency
         self.name = coin.name
         self.symbol = coin.symbol
-        self.price = coin.priceUSD
+        if currency == "USD" {
+            self.price = coin.priceUSD
+        } else {
+            self.price = coin.priceEUR
+        }
+        
         self.priceChange = coin.precentChange1h
         print(coin.symbol!.lowercased())
     }
@@ -40,18 +46,28 @@ class CoinViewModel {
         return coins.count
     }
     
-    func cellForRowAt(indexPath: IndexPath) -> CoinTableViewCell {
+    func cellForRowAt(currency: String, indexPath: IndexPath) -> CoinTableViewCell {
         let cell = CoinTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
         let coin = coins[indexPath.row]
         cell.nameLabel.text = coin.name
         cell.symbolLabel.text = coin.symbol
-        cell.priceLabel.text = coin.price
         cell.priceChangeLabel.text = coin.priceChange
+        guard let priceChange = coin.priceChange else { return cell }
+        if priceChange.contains("-") {
+            cell.priceChangeLabel.layer.backgroundColor = UIColor.red.cgColor
+        } else {
+            cell.priceChangeLabel.layer.backgroundColor = UIColor.green.cgColor
+        }
+        guard let price = coin.price else { return cell }
+        let formattedPrice = NumberFormatter().number(from: price)
+        if currency == "USD" {
+            cell.priceLabel.text = formattedPrice?.formattedCurrencyStringUSD
+        } else {
+            cell.priceLabel.text = formattedPrice?.formattedCurrencyStringEUR
+        }
         guard let symbol = coin.symbol else { return cell }
         guard let image = UIImage(named: symbol.lowercased()) else { return cell }
-        DispatchQueue.main.async {
-            cell.cryptoCurrencyImageView.image = image
-        }
+        cell.cryptoCurrencyImageView.image = image
         return cell
     }
     
@@ -72,15 +88,6 @@ class CoinViewModel {
         let date = Date()
         let dateString = dateFormatter.string(from: date)
         return "Updated on " + dateString
-    }
-}
-
-extension UIImageView {
-    public func imageFromUrl(urlString: String) {
-        if let url = URL(string: urlString) {
-            self.kf.setImage(with: url)
-            UserDefaults.standard.set(urlString, forKey: urlString)
-        }
     }
 }
 

@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import SwiftyJSON
-import Kingfisher
-import SQLite3
 
 let cache = NSCache<AnyObject, AnyObject>()
 
@@ -101,9 +98,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func getDefaults() {
         guard let curr = UserDefaults.standard.string(forKey: "currency") else {
-            viewModel.currency = "EUR"
+            currency = "EUR"
             self.currencySwitch.selectedSegmentIndex = 0
-            UserDefaults.standard.set(viewModel.currency, forKey: "currency")
+            UserDefaults.standard.set(currency, forKey: "currency")
             return
         }
         currency = curr
@@ -146,7 +143,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return viewModel.cellForRowAt(indexPath: indexPath)
+        return viewModel.cellForRowAt(currency: currency, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
