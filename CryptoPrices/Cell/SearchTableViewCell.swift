@@ -35,8 +35,8 @@ class SearchTableViewCell: UITableViewCell {
         
         nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: cryptoCurrencyImageView.rightAnchor, constant: 8).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
