@@ -8,14 +8,11 @@
 
 import UIKit
 
-let cache = NSCache<AnyObject, AnyObject>()
-
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var viewModel: CoinViewModel!
     private var api = API()
     var currency: String!
-
     
     let refreshControl = UIRefreshControl()
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
@@ -42,9 +39,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return currencySwitch
     }()
     
-    var addNewCryptoCoinButton: UIBarButtonItem!
-    var cancelButton: UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -56,7 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         navigationItem.title = "Cryptocurrency Prices"
         
-        addNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCryptoCoin))
+        let addNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCryptoCoin))
         navigationItem.rightBarButtonItem = addNewCryptoCoinButton
     }
     
@@ -87,10 +81,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = UIColor.lightGray
         view.addSubview(currencySwitch)
         currencySwitch.translatesAutoresizingMaskIntoConstraints = false
-        currencySwitch.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        currencySwitch.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
         currencySwitch.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        currencySwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        currencySwitch.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        currencySwitch.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -25).isActive = true
+        currencySwitch.heightAnchor.constraint(equalToConstant: 30).isActive = true
         currencySwitch.addTarget(self, action: #selector(switcher), for: .valueChanged)
         
         view.addSubview(tableView)
