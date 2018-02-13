@@ -61,7 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func addNewCryptoCoin() {
-        let newViewController = NewViewController()
+        let newViewController = SearchViewController()
         let navController = UINavigationController(rootViewController: newViewController)
         navController.modalPresentationStyle = .overCurrentContext
         self.present(navController, animated: false, completion: nil)

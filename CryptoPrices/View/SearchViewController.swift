@@ -1,5 +1,5 @@
 //
-//  NewViewController.swift
+//  SearchViewController.swift
 //  CryptoPrices
 //
 //  Created by Zan Drakslar on 05/02/2018.
@@ -8,11 +8,16 @@
 
 import UIKit
 
-class NewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-    
-    let cellId = "cellId"
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var crypto = ["Bitcoin", "Bitcoin Cash", "Etherium", "Ripple", "NEO", "Cardano", "Litecoin"]
+    var filteredData: [String] = []
+    
+    let reuseIdentifier = String(describing: CoinTableViewCell.self)
+    
+    private var api = API()
+    
+    private var searchViewModel: SearchViewModel!
     
     lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
@@ -25,10 +30,12 @@ class NewViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.isHidden = true
-        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.separatorStyle = .singleLine
+        tableView.isHidden = true
+        tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -37,7 +44,7 @@ class NewViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        //        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.heightAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
@@ -58,22 +65,20 @@ class NewViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         view.backgroundColor = .clear
         
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        searchViewModel = SearchViewModel(API: api) {
+            self.tableView.reloadData()
+        }
+        
         view.addSubview(searchBar)
         searchBarLayoutSetup()
         view.addSubview(tableView)
         tableViewLayoutSetup()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @objc func cancelNewCryptoCoin() {
         dismiss(animated: false, completion: nil)
     }
-    
-    var filteredData: [String] = []
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
@@ -94,17 +99,17 @@ class NewViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return searchViewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = filteredData[indexPath.row]
-        return cell
+        return searchViewModel.cellForRowAt(indexPath: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+    
 }
+
