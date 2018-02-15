@@ -13,6 +13,8 @@ class SearchViewModel {
     var name: String?
     var symbol: String?
     var coins =  [SearchViewModel]()
+    var filteredCoins = [SearchViewModel]()
+    private var searchViewController: SearchViewController!
     
     init(coin: Coin) {
         self.name = coin.name
@@ -28,13 +30,19 @@ class SearchViewModel {
         }
     }
     
+    func searchText(searchText: String) {
+        filteredCoins = coins.filter({ (coin) -> Bool in
+            return coin.name!.lowercased().contains(searchText.lowercased())
+        })
+    }
+    
     func numberOfRowsInSection() -> Int {
-        return coins.count
+        return filteredCoins.count
     }
     
     func cellForRowAt(indexPath: IndexPath) -> SearchTableViewCell {
         let cell = SearchTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        let coin = coins[indexPath.row]
+        let coin = filteredCoins[indexPath.row]
         cell.nameLabel.text = coin.name
         
         guard let symbol = coin.symbol else { return cell }
@@ -42,6 +50,4 @@ class SearchViewModel {
         cell.cryptoCurrencyImageView.image = image
         return cell
     }
-    
-    
 }

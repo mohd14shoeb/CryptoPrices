@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import Charts
 
 class CoinViewModel {    
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
-    private var vc = ViewController()
     
     var name: String?
     var symbol: String?
@@ -28,7 +28,6 @@ class CoinViewModel {
         self.priceUSD = coin.priceUSD
         self.priceEUR = coin.priceEUR
         self.priceChange = coin.precentChange1h
-        print(coin.symbol!.lowercased())
     }
     
     init(API: API, completion: @escaping () -> ()) {
@@ -90,25 +89,5 @@ class CoinViewModel {
         let date = Date()
         let dateString = dateFormatter.string(from: date)
         return "Updated on " + dateString
-    }
-    
-    
-    
-
-}
-
-extension NSNumber {
-    var formattedCurrencyStringUSD: String? {
-        let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.numberStyle = .currency
-        return formatter.string(from: self)
-    }
-    
-    var formattedCurrencyStringEUR: String? {
-        let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "en_FI")
-        formatter.numberStyle = .currency
-        return formatter.string(from: self)
     }
 }

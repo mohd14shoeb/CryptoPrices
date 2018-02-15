@@ -10,9 +10,6 @@ import UIKit
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    var crypto = ["Bitcoin", "Bitcoin Cash", "Etherium", "Ripple", "NEO", "Cardano", "Litecoin"]
-    var filteredData: [String] = []
-    
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
     
     private var api = API()
@@ -21,7 +18,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
-        //        search.isHidden = true
         search.placeholder = "Search"
         search.translatesAutoresizingMaskIntoConstraints = false
         search.delegate = self
@@ -34,7 +30,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.separatorStyle = .singleLine
-        tableView.isHidden = true
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -44,7 +39,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        //        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.heightAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
@@ -63,9 +57,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cancelNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelNewCryptoCoin))
         navigationItem.rightBarButtonItem = cancelNewCryptoCoinButton
         
-        view.backgroundColor = .clear
+        view.backgroundColor = .white //.clear
+        tableView.backgroundColor = .black
+        tableView.alpha = 0.1
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         searchViewModel = SearchViewModel(API: api) {
             self.tableView.reloadData()
         }
@@ -81,18 +76,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            tableView.isHidden = true
-        } else {
-            if tableView.isHidden {
-                tableView.isHidden = false
-            }
-            
-            filteredData = crypto.filter({ (coin) -> Bool in
-                return coin.lowercased().contains(searchText.lowercased())
-            })
-        }
-        
+        searchViewModel.searchText(searchText: searchText)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -109,7 +93,5 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
-    
-    
 }
 

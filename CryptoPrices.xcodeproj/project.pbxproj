@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E2FC3DF202A43CE00CA392D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FC3DE202A43CE00CA392D /* Storage.swift */; };
 		0E3A487E2028B63E008465A3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3A487D2028B63D008465A3 /* SearchViewController.swift */; };
 		0E43981E2023B00300B744AE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E43981D2023B00300B744AE /* CoinTableViewCell.swift */; };
 		0E8E900D2030CAEB0030507E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E900C2030CAEB0030507E /* API.swift */; };
@@ -15,9 +14,9 @@
 		0E8E90132030CB3F0030507E /* CoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E90122030CB3F0030507E /* CoinViewModel.swift */; };
 		0E8E90152030CB410030507E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E90142030CB410030507E /* SearchViewModel.swift */; };
 		0E8E901820314D120030507E /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8E901920314D120030507E /* Charts.framework */; };
-		0E8E901A20314D170030507E /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8E901B20314D170030507E /* PureLayout.framework */; };
 		0E8E901C20314D1F0030507E /* Pods_CryptoPrices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8E901D20314D1F0030507E /* Pods_CryptoPrices.framework */; };
 		0E8E902020332A020030507E /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E901F20332A020030507E /* SearchTableViewCell.swift */; };
+		0E8E9024203386890030507E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E9023203386890030507E /* Extensions.swift */; };
 		0EA9915F20183EC600F1A271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9915E20183EC600F1A271 /* AppDelegate.swift */; };
 		0EA9916120183EC600F1A271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9916020183EC600F1A271 /* ViewController.swift */; };
 		0EA9916420183EC600F1A271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916220183EC600F1A271 /* Main.storyboard */; };
@@ -39,7 +38,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E2FC3DE202A43CE00CA392D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		0E3A487D2028B63D008465A3 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0E43981D2023B00300B744AE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
 		0E8E900C2030CAEB0030507E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -50,6 +48,7 @@
 		0E8E901B20314D170030507E /* PureLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PureLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8E901D20314D1F0030507E /* Pods_CryptoPrices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_CryptoPrices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8E901F20332A020030507E /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		0E8E9023203386890030507E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0EA9915B20183EC600F1A271 /* CryptoPrices.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPrices.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EA9915E20183EC600F1A271 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EA9916020183EC600F1A271 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +68,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E8E901C20314D1F0030507E /* Pods_CryptoPrices.framework in Frameworks */,
-				0E8E901A20314D170030507E /* PureLayout.framework in Frameworks */,
 				0E8E901820314D120030507E /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +120,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0E8E9022203386490030507E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0E8E9023203386890030507E /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		0EA9915220183EC600F1A271 = {
 			isa = PBXGroup;
 			children = (
@@ -143,18 +149,18 @@
 		0EA9915D20183EC600F1A271 /* CryptoPrices */ = {
 			isa = PBXGroup;
 			children = (
+				0ECDA133201EBE4800BFF853 /* CryptoPrices.entitlements */,
+				0EA9915E20183EC600F1A271 /* AppDelegate.swift */,
+				0EA9916220183EC600F1A271 /* Main.storyboard */,
+				0E8E9022203386490030507E /* Helpers */,
 				0E8E902120332A7D0030507E /* View */,
 				0E8E901E2033297A0030507E /* Cell */,
 				0E8E90112030CB2A0030507E /* ViewModel */,
 				0E8E900E2030CB0E0030507E /* Model */,
 				0E8E900B2030CAD70030507E /* API */,
-				0ECDA133201EBE4800BFF853 /* CryptoPrices.entitlements */,
-				0EA9915E20183EC600F1A271 /* AppDelegate.swift */,
-				0EA9916220183EC600F1A271 /* Main.storyboard */,
 				0EA9916520183EC600F1A271 /* Assets.xcassets */,
 				0EA9916720183EC600F1A271 /* LaunchScreen.storyboard */,
 				0EA9916A20183EC600F1A271 /* Info.plist */,
-				0E2FC3DE202A43CE00CA392D /* Storage.swift */,
 			);
 			path = CryptoPrices;
 			sourceTree = "<group>";
@@ -297,12 +303,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CryptoPrices/Pods-CryptoPrices-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -321,8 +327,8 @@
 				0E3A487E2028B63E008465A3 /* SearchViewController.swift in Sources */,
 				0E8E90132030CB3F0030507E /* CoinViewModel.swift in Sources */,
 				0E43981E2023B00300B744AE /* CoinTableViewCell.swift in Sources */,
+				0E8E9024203386890030507E /* Extensions.swift in Sources */,
 				0E8E90152030CB410030507E /* SearchViewModel.swift in Sources */,
-				0E2FC3DF202A43CE00CA392D /* Storage.swift in Sources */,
 				0E8E90102030CB1C0030507E /* Coin.swift in Sources */,
 				0E8E900D2030CAEB0030507E /* API.swift in Sources */,
 				0E8E902020332A020030507E /* SearchTableViewCell.swift in Sources */,
