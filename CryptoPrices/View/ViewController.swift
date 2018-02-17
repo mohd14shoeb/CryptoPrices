@@ -89,10 +89,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: currencySwitch.bottomAnchor, constant: 8).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            tableView.topAnchor.constraint(equalTo: currencySwitch.bottomAnchor, constant: 8).isActive = true
+            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        } else {
+            tableView.topAnchor.constraint(equalTo: currencySwitch.bottomAnchor, constant: 8).isActive = true
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        }
     }
     
     @objc func switcher() {

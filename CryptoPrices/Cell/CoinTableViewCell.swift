@@ -30,6 +30,7 @@ class CoinTableViewCell: UITableViewCell {
         
         priceLabel.font = priceLabel.font.withSize(16)
         priceLabel.textAlignment = .center
+        priceLabel.adjustsFontSizeToFitWidth = true
         priceLabel.layer.backgroundColor = UIColor.clear.cgColor
         priceLabel.layer.borderWidth = 1
         priceLabel.layer.cornerRadius = 5

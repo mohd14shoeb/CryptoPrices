@@ -58,7 +58,7 @@ class CoinViewModel {
         }
 
         if currency == "USD" {
-            guard let price = coin.priceUSD else { return cell }
+            guard let price = coins[indexPath.row].priceUSD else { return cell }
             let formattedPrice = NumberFormatter().number(from: price)
             cell.priceLabel.text = formattedPrice?.formattedCurrencyStringUSD
         } else {
@@ -68,6 +68,7 @@ class CoinViewModel {
         }
         guard let symbol = coin.symbol else { return cell }
         guard let image = UIImage(named: symbol.lowercased()) else { return cell }
+        print(cell.priceLabel.text)
         cell.cryptoCurrencyImageView.image = image
         return cell
     }
