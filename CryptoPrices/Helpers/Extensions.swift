@@ -23,3 +23,11 @@ extension NSNumber {
         return formatter.string(from: self)
     }
 }
+
+extension UILabel {
+    var basicSetup: UILabel? {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+}

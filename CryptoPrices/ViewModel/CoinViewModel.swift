@@ -19,9 +19,6 @@ class CoinViewModel {
     var priceChange: String?
     var coins =  [CoinViewModel]()
     
-    let currencySwitch = ViewController().currencySwitch
-    let tableView = ViewController().tableView
-    
     init(coin: Coin) {
         self.name = coin.name
         self.symbol = coin.symbol
