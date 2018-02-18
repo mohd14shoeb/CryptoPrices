@@ -49,16 +49,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupViews()
         
         navigationItem.title = "Cryptocurrency Prices"
-        
-        let addNewCryptoCoinButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCryptoCoin))
-        navigationItem.rightBarButtonItem = addNewCryptoCoinButton
-    }
-    
-    @objc func addNewCryptoCoin() {
-        let newViewController = SearchViewController()
-        let navController = UINavigationController(rootViewController: newViewController)
-        navController.modalPresentationStyle = .overCurrentContext
-        self.present(navController, animated: false, completion: nil)
     }
     
     @objc func refreshPrices() {
