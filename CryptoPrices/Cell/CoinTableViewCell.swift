@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Charts
 
 class CoinTableViewCell: UITableViewCell {
     var cryptoCurrencyImageView = UIImageView()
@@ -17,7 +16,7 @@ class CoinTableViewCell: UITableViewCell {
     var nameLabel = UILabel()
     var priceChangeLabel = UILabel()
     
-    let priceLineChartView = LineChartView()
+    let priceLineChartView = UILabel()
     let queue = OperationQueue()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -43,10 +42,6 @@ class CoinTableViewCell: UITableViewCell {
         priceChangeLabel.layer.backgroundColor = UIColor.green.cgColor
         priceChangeLabel.layer.borderWidth = 1
         priceChangeLabel.layer.cornerRadius = 5
-        
-        priceLineChartView.borderColor = UIColor.black
-        priceLineChartView.borderLineWidth = 1
-        priceLineChartView.drawBordersEnabled = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false

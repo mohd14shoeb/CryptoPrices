@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Charts
 
 class CoinViewModel {    
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
