@@ -29,7 +29,6 @@ class DetailsViewModel {
     var lastUpdated: String?
     
     var coins = [DetailsViewModel]()
-    var detailsViewController = DetailsViewController()
     
     init(coin: Coin) {
         name = coin.name

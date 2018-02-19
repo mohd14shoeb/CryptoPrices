@@ -21,6 +21,7 @@ class DetailsViewCustomLabel: UILabel {
     }
     
     func initializeLabel() {
+        self.backgroundColor = .clear
         self.textAlignment = .center
         self.translatesAutoresizingMaskIntoConstraints = false
     }

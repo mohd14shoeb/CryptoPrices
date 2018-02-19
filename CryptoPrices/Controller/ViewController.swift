@@ -150,7 +150,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsVC = DetailsViewController()
         let coins = viewModel.coins
-        detailsVC.coinViewModel = coins[indexPath.row]
+        detailsVC.name = coins[indexPath.row].name
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
