@@ -22,10 +22,15 @@ class CoinTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        setupViews()
+    }
+    
+    func setupViews() {
         self.backgroundColor = UIColor.lightGray
         cryptoCurrencyImageView.backgroundColor = UIColor.clear
         
         nameLabel.font = nameLabel.font.withSize(16)
+        nameLabel.adjustsFontSizeToFitWidth = true
         
         priceLabel.font = priceLabel.font.withSize(16)
         priceLabel.textAlignment = .center
@@ -33,6 +38,10 @@ class CoinTableViewCell: UITableViewCell {
         priceLabel.layer.backgroundColor = UIColor.clear.cgColor
         priceLabel.layer.borderWidth = 1
         priceLabel.layer.cornerRadius = 5
+        
+        priceLineChartView.text = ">"
+        priceLineChartView.textAlignment = .right
+        priceLineChartView.font = UIFont.systemFont(ofSize: 25)
         
         symbolLabel.font = symbolLabel.font.withSize(12)
         symbolLabel.textAlignment = .left
@@ -57,35 +66,37 @@ class CoinTableViewCell: UITableViewCell {
         contentView.addSubview(priceChangeLabel)
         contentView.addSubview(priceLineChartView)
         
-        cryptoCurrencyImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        cryptoCurrencyImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
-        cryptoCurrencyImageView.widthAnchor.constraint(equalToConstant: 46).isActive = true
-        cryptoCurrencyImageView.heightAnchor.constraint(equalToConstant: 46).isActive = true
-        
-        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: cryptoCurrencyImageView.rightAnchor, constant: 8).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
-        symbolLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        symbolLabel.leftAnchor.constraint(equalTo: cryptoCurrencyImageView.rightAnchor, constant: 8).isActive = true
-        symbolLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        symbolLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
-        
-        priceLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
-        priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-        priceLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        priceLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        priceLineChartView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        priceLineChartView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
-        priceLineChartView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        priceLineChartView.heightAnchor.constraint(equalToConstant: 46).isActive = true
-        
-        priceChangeLabel.topAnchor.constraint(equalTo: priceLineChartView.bottomAnchor, constant: 8).isActive = true
-        priceChangeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-        priceChangeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
-        priceChangeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        NSLayoutConstraint.activate([
+            cryptoCurrencyImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            cryptoCurrencyImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            cryptoCurrencyImageView.widthAnchor.constraint(equalToConstant: 46),
+            cryptoCurrencyImageView.heightAnchor.constraint(equalToConstant: 46),
+            
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            nameLabel.leftAnchor.constraint(equalTo: cryptoCurrencyImageView.rightAnchor, constant: 8),
+            nameLabel.widthAnchor.constraint(equalToConstant: 200),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            symbolLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            symbolLabel.leftAnchor.constraint(equalTo: cryptoCurrencyImageView.rightAnchor, constant: 8),
+            symbolLabel.widthAnchor.constraint(equalToConstant: 100),
+            symbolLabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            priceLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            priceLabel.widthAnchor.constraint(equalToConstant: 100),
+            priceLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            priceLineChartView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            priceLineChartView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            priceLineChartView.widthAnchor.constraint(equalToConstant: 200),
+            priceLineChartView.heightAnchor.constraint(equalToConstant: 46),
+            
+            priceChangeLabel.topAnchor.constraint(equalTo: priceLineChartView.bottomAnchor, constant: 8),
+            priceChangeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            priceChangeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            priceChangeLabel.widthAnchor.constraint(equalToConstant: 100)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -31,6 +31,10 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        refreshData()
+    }
+    
+    func refreshData() {
         detailsViewModel = DetailsViewModel(API: api, completion: {
             let coins = self.detailsViewModel.coins
             if let i = coins.index(where: { $0.name == self.name }) {
