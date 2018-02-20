@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     private var viewModel: CoinViewModel!
     private var api = API()
@@ -39,16 +39,55 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return currencySwitch
     }()
     
+    var showSearch: UIBarButtonItem!
+    var hideSearch: UIBarButtonItem!
+    var searchBarHeight: NSLayoutConstraint!
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         getDefaults()
+        
+        searchBarHeight = searchBar.heightAnchor.constraint(equalToConstant: 0)
+        
         viewModel = CoinViewModel(API: api) {
             self.tableView.reloadData()
         }
         setupViews()
+        showSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleShowSearch))
         
         navigationItem.title = "Cryptocurrency Prices"
+        navigationItem.rightBarButtonItem = showSearch
+    }
+    
+    @objc func handleShowSearch() {
+        UIView.animate(withDuration: 0.3) {
+            self.searchBarHeight.constant = 50
+            self.view.layoutIfNeeded()
+        }
+        hideSearch = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleHideSearch))
+        navigationItem.rightBarButtonItem = hideSearch
+    }
+    
+    @objc func handleHideSearch() {
+        UIView.animate(withDuration: 0.3) {
+            self.searchBarHeight.constant = 0
+            self.view.layoutIfNeeded()
+        }
+        navigationItem.rightBarButtonItem = showSearch
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
     }
     
     @objc func refreshPrices() {
@@ -90,6 +129,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         }
+        
+        view.addSubview(searchBar) // Zan
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 0),
+            searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            searchBarHeight])
     }
     
     @objc func switcher() {
@@ -124,6 +170,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             currencySwitch.selectedSegmentIndex = 0
         } else {
             currencySwitch.selectedSegmentIndex = 1
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchText(searchText: searchText)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 

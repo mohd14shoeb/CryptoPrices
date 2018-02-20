@@ -11,12 +11,15 @@ import UIKit
 class CoinViewModel {    
     let reuseIdentifier = String(describing: CoinTableViewCell.self)
     
+    var searchTextString: String?
+    
     var name: String?
     var symbol: String?
     var priceUSD: String?
     var priceEUR: String?
     var priceChange: String?
     var coins =  [CoinViewModel]()
+    var filteredCoins = [CoinViewModel]()
     
     init(coin: Coin) {
         self.name = coin.name
@@ -35,13 +38,29 @@ class CoinViewModel {
         }
     }
     
+    func searchText(searchText: String) {
+        searchTextString = searchText
+        filteredCoins = coins.filter({ (coin) -> Bool in
+            return coin.name!.lowercased().contains(searchText.lowercased())
+        })
+    }
+    
     func numberOfRowsInSection() -> Int {
-        return coins.count
+        if searchTextString != nil && searchTextString != "" {
+            return filteredCoins.count
+        } else {
+            return coins.count
+        }
     }
     
     func cellForRowAt(currency: String, indexPath: IndexPath) -> CoinTableViewCell {
         let cell = CoinTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        let coin = coins[indexPath.row]
+        var coin = coins[indexPath.row]
+        if searchTextString != nil && searchTextString != "" {
+            coin = filteredCoins[indexPath.row]
+        } else {
+            coin = coins[indexPath.row]
+        }
         cell.nameLabel.text = coin.name
         cell.symbolLabel.text = coin.symbol        
         guard let priceChange = coin.priceChange else { return cell }
