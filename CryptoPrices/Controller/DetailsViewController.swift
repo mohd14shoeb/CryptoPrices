@@ -9,10 +9,8 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
-    
-    var name: String!
-    var coinViewModel: CoinViewModel!
-    var api = API()
+
+    var coin: CoinViewModel!
     
     var nameLabel = DetailsViewCustomLabel()
     var symbolLabel = DetailsViewCustomLabel()
@@ -35,27 +33,21 @@ class DetailsViewController: UIViewController {
     }
     
     func refreshData() {
-        coinViewModel = CoinViewModel(API: api, completion: {
-            let coins = self.coinViewModel.coins
-            if let i = coins.index(where: { $0.name == self.name }) {
-                let coin = coins[i]
-                let priceDouble = Double(coin.priceUSD!)
-                let formattedPrice = NSNumber(value: priceDouble!).formattedCurrencyStringUSD
-                self.nameLabel.text = coin.name
-                self.symbolLabel.text = "Coin symbol: " + (coin.symbol ?? "N/A")
-                self.priceLabel.text = "Coin price: " + (formattedPrice ?? "N/A")
-                self.priceChangeLabel.text = "1h Change: " + (coin.priceChange1h ?? "N/A") + "%"
-                self.btcPriceLabel.text = "Price in BTC: " + (coin.priceBTC ?? "N/A")
-                self.rankLabel.text = "Coin rank: " + (coin.rank ?? "N/A")
-                self.dayVolumeLabel.text = "24h volume: " + (coin.dayVolumeUSD ?? "N/A")
-                self.marketCapLabel.text = "Market cap: " + (coin.marketCapUSD ?? "N/A")
-                self.availableSupplyLabel.text = "Available supply: " + (coin.availableSupply ?? "N/A")
-                self.totalSupplyLabel.text = "Total supply: " + (coin.totalSupply ?? "N/A")
-                self.maxSupplyLabel.text = "Max. supply: " + (coin.maxSupply ?? "N/A")
-                self.idLabel.text = "Coin ID: " + (coin.id ?? "N/A")
-                self.updatedLabel.text = "Last updated: " + (coin.lastUpdated ?? "N/A")
-            }
-        })
+        let priceDouble = Double(coin.priceUSD!)
+        let formattedPrice = NSNumber(value: priceDouble!).formattedCurrencyStringUSD
+        self.nameLabel.text = coin.name
+        self.symbolLabel.text = "Coin symbol: " + (coin.symbol ?? "N/A")
+        self.priceLabel.text = "Coin price: " + (formattedPrice ?? "N/A")
+        self.priceChangeLabel.text = "1h Change: " + (coin.priceChange1h ?? "N/A") + "%"
+        self.btcPriceLabel.text = "Price in BTC: " + (coin.priceBTC ?? "N/A")
+        self.rankLabel.text = "Coin rank: " + (coin.rank ?? "N/A")
+        self.dayVolumeLabel.text = "24h volume: " + (coin.dayVolumeUSD ?? "N/A")
+        self.marketCapLabel.text = "Market cap: " + (coin.marketCapUSD ?? "N/A")
+        self.availableSupplyLabel.text = "Available supply: " + (coin.availableSupply ?? "N/A")
+        self.totalSupplyLabel.text = "Total supply: " + (coin.totalSupply ?? "N/A")
+        self.maxSupplyLabel.text = "Max. supply: " + (coin.maxSupply ?? "N/A")
+        self.idLabel.text = "Coin ID: " + (coin.id ?? "N/A")
+        self.updatedLabel.text = "Last updated: " + (coin.lastUpdated ?? "N/A")
     }
     
     func setupViews() {

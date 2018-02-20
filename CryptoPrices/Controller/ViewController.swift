@@ -213,10 +213,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let filteredCoins = viewModel.filteredCoins
         if filteredCoins.count == 0 {
             let coins = viewModel.coins
-            detailsVC.name = coins[indexPath.row].name
+            detailsVC.coin = coins[indexPath.row]
         } else {
             let coins = filteredCoins
-            detailsVC.name = coins[indexPath.row].name
+            detailsVC.coin = coins[indexPath.row]
         }
         let range = NSMakeRange(0, self.tableView.numberOfSections)
         let sections = NSIndexSet(indexesIn: range)
