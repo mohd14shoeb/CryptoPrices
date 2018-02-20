@@ -20,7 +20,6 @@
 		0EA9916620183EC600F1A271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916520183EC600F1A271 /* Assets.xcassets */; };
 		0EA9916920183EC600F1A271 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916720183EC600F1A271 /* LaunchScreen.storyboard */; };
 		0ED52B9C2039E1B000A73724 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED52B9B2039E1B000A73724 /* DetailsViewController.swift */; };
-		0ED52B9E2039E5D600A73724 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED52B9D2039E5D600A73724 /* DetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,7 +53,6 @@
 		0ECDA0EE201E3BB900BFF853 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		0ECDA133201EBE4800BFF853 /* CryptoPrices.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptoPrices.entitlements; sourceTree = "<group>"; };
 		0ED52B9B2039E1B000A73724 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		0ED52B9D2039E5D600A73724 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				0E8E90122030CB3F0030507E /* CoinViewModel.swift */,
-				0ED52B9D2039E5D600A73724 /* DetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -252,7 +249,6 @@
 				0E8E90102030CB1C0030507E /* Coin.swift in Sources */,
 				0E8E900D2030CAEB0030507E /* API.swift in Sources */,
 				0E8E902020332A020030507E /* SearchTableViewCell.swift in Sources */,
-				0ED52B9E2039E5D600A73724 /* DetailsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

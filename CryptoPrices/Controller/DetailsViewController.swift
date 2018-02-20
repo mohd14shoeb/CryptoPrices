@@ -11,7 +11,7 @@ import UIKit
 class DetailsViewController: UIViewController {
     
     var name: String!
-    var detailsViewModel: DetailsViewModel!
+    var coinViewModel: CoinViewModel!
     var api = API()
     
     var nameLabel = DetailsViewCustomLabel()
@@ -35,8 +35,8 @@ class DetailsViewController: UIViewController {
     }
     
     func refreshData() {
-        detailsViewModel = DetailsViewModel(API: api, completion: {
-            let coins = self.detailsViewModel.coins
+        coinViewModel = CoinViewModel(API: api, completion: {
+            let coins = self.coinViewModel.coins
             if let i = coins.index(where: { $0.name == self.name }) {
                 let coin = coins[i]
                 let priceDouble = Double(coin.priceUSD!)

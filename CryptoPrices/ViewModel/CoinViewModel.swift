@@ -16,17 +16,44 @@ class CoinViewModel {
     var name: String?
     var symbol: String?
     var priceUSD: String?
-    var priceEUR: String?
-    var priceChange: String?
+    var priceEUR:String?
+    var priceBTC: String?
+    var priceChange1h: String?
+    var priceChange24h: String?
+    var priceChange7d: String?
+    var rank: String?
+    var id: String?
+    var dayVolumeUSD: String?
+    var dayVolumeEUR: String?
+    var marketCapUSD: String?
+    var marketCapEUR: String?
+    var availableSupply: String?
+    var totalSupply: String?
+    var maxSupply:String?
+    var lastUpdated: String?
+    
     var coins =  [CoinViewModel]()
     var filteredCoins = [CoinViewModel]()
     
     init(coin: Coin) {
-        self.name = coin.name
-        self.symbol = coin.symbol
-        self.priceUSD = coin.priceUSD
-        self.priceEUR = coin.priceEUR
-        self.priceChange = coin.precentChange1h
+        name = coin.name
+        symbol = coin.symbol
+        priceUSD = coin.priceUSD
+        priceEUR = coin.priceEUR
+        priceBTC = coin.priceBTC
+        priceChange1h = coin.precentChange1h
+        priceChange24h = coin.percentChange24h
+        priceChange7d = coin.percentChange7d
+        rank = coin.rank
+        id = coin.id
+        dayVolumeUSD = coin.hVolumeUSD
+        dayVolumeEUR = coin.hVolumeEUR
+        marketCapUSD = coin.marketCapUSD
+        marketCapEUR = coin.marketCapEUR
+        availableSupply = coin.availableSupply
+        totalSupply = coin.totalSupply
+        maxSupply = coin.maxSupply
+        lastUpdated = coin.lastUpdated
     }
     
     init(API: API, completion: @escaping () -> ()) {
@@ -55,6 +82,7 @@ class CoinViewModel {
     
     func cellForRowAt(currency: String, indexPath: IndexPath) -> CoinTableViewCell {
         let cell = CoinTableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
+        cell.accessoryType = .disclosureIndicator
         var coin = coins[indexPath.row]
         if searchTextString != nil && searchTextString != "" {
             coin = filteredCoins[indexPath.row]
@@ -63,12 +91,12 @@ class CoinViewModel {
         }
         cell.nameLabel.text = coin.name
         cell.symbolLabel.text = coin.symbol        
-        guard let priceChange = coin.priceChange else { return cell }
+        guard let priceChange = coin.priceChange24h else { return cell }
         if priceChange.contains("-") {
-            cell.priceChangeLabel.text = priceChange
+            cell.priceChangeLabel.text = priceChange + " %"
             cell.priceChangeLabel.layer.backgroundColor = UIColor.red.cgColor
         } else {
-            cell.priceChangeLabel.text = "+\(priceChange)"
+            cell.priceChangeLabel.text = "+\(priceChange) %"
             cell.priceChangeLabel.layer.backgroundColor = UIColor.green.cgColor
         }
 

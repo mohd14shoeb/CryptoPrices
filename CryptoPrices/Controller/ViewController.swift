@@ -59,7 +59,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBarHeight = searchBar.heightAnchor.constraint(equalToConstant: 0)
         
         viewModel = CoinViewModel(API: api) {
-            self.tableView.reloadData()
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
         }
         setupViews()
         showSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleShowSearch))
@@ -91,12 +93,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func refreshPrices() {
-        viewModel = CoinViewModel(API: api) {
-            let range = NSMakeRange(0, self.tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
-            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-            self.refreshControl.endRefreshing()
-        }
+        api.getData { (coins) in
+            self.viewModel.coins = coins.map(CoinViewModel.init)
+            DispatchQueue.main.async {
+                let range = NSMakeRange(0, self.tableView.numberOfSections)
+                let sections = NSIndexSet(indexesIn: range)
+                self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+                self.refreshControl.endRefreshing()
+            }
+        }        
     }
     
     func setupViews() {
@@ -176,7 +181,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchText(searchText: searchText)
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
         }
     }
 
@@ -202,8 +209,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsVC = DetailsViewController()
-        let coins = viewModel.coins
-        detailsVC.name = coins[indexPath.row].name
+        
+        let filteredCoins = viewModel.filteredCoins
+        if filteredCoins.count == 0 {
+            let coins = viewModel.coins
+            detailsVC.name = coins[indexPath.row].name
+        } else {
+            let coins = filteredCoins
+            detailsVC.name = coins[indexPath.row].name
+        }
+        let range = NSMakeRange(0, self.tableView.numberOfSections)
+        let sections = NSIndexSet(indexesIn: range)
+        tableView.reloadSections(sections as IndexSet, with: .automatic)
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

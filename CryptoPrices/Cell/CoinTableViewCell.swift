@@ -39,7 +39,6 @@ class CoinTableViewCell: UITableViewCell {
         priceLabel.layer.borderWidth = 1
         priceLabel.layer.cornerRadius = 5
         
-        priceLineChartView.text = ">"
         priceLineChartView.textAlignment = .right
         priceLineChartView.font = UIFont.systemFont(ofSize: 25)
         
