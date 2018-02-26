@@ -42,6 +42,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate
     
     var showSearch: UIBarButtonItem!
     var hideSearch: UIBarButtonItem!
+    var filterButton: UIBarButtonItem!
     var searchBarHeight: NSLayoutConstraint!
     
     lazy var searchBar: UISearchBar = {
@@ -65,10 +66,40 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate
             self.tableView.reloadSections(sections as IndexSet, with: .automatic)
         }
         setupViews()
+        
         showSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleShowSearch))
+        
+        filterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "FilterIcon"), style: .plain, target: self, action: #selector(cleanSearchBar))
+        
+        navigationItem.leftBarButtonItem = filterButton
         
         navigationItem.title = "Cryptocurrency Prices"
         navigationItem.rightBarButtonItem = showSearch
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        
+        handleEnableDisableButton()
+    }
+    
+    func handleEnableDisableButton() {
+        if searchBar.text == "" {
+            filterButton.isEnabled = false
+        } else {
+            filterButton.isEnabled = true
+        }
+    }
+    
+    @objc func cleanSearchBar() {
+        searchBar.text?.removeAll()
+        viewModel.searchTextString?.removeAll()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc func handleKeyboardWillHide() {
+        handleHideSearch()
+        handleEnableDisableButton()
     }
     
     @objc func handleShowSearch() {
@@ -78,6 +109,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate
         }
         hideSearch = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleHideSearch))
         navigationItem.rightBarButtonItem = hideSearch
+        searchBar.becomeFirstResponder()
     }
     
     @objc func handleHideSearch() {
@@ -85,8 +117,9 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate
             self.searchBarHeight.constant = 0
             self.view.layoutIfNeeded()
         }
-        navigationItem.rightBarButtonItem = showSearch
         searchBar.endEditing(true)
+        navigationItem.rightBarButtonItem = showSearch
+        handleEnableDisableButton()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -136,7 +169,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         }
         
-        view.addSubview(searchBar) // Zan
+        view.addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 0),
             searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
