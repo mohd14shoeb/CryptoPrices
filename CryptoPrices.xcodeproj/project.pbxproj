@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E33DCFC203A223700D425FA /* DetailsViewCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E33DCFB203A223700D425FA /* DetailsViewCustomLabel.swift */; };
+		0E33DCFC203A223700D425FA /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E33DCFB203A223700D425FA /* CustomLabel.swift */; };
 		0E43981E2023B00300B744AE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E43981D2023B00300B744AE /* CoinTableViewCell.swift */; };
 		0E8E900D2030CAEB0030507E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E900C2030CAEB0030507E /* API.swift */; };
 		0E8E90102030CB1C0030507E /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E900F2030CB1C0030507E /* Coin.swift */; };
 		0E8E90132030CB3F0030507E /* CoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E90122030CB3F0030507E /* CoinViewModel.swift */; };
-		0E8E902020332A020030507E /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E901F20332A020030507E /* SearchTableViewCell.swift */; };
 		0E8E9024203386890030507E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E9023203386890030507E /* Extensions.swift */; };
+		0EA8CCAE204355A500A770AA /* ChalkboardSE-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8CCAA2043552100A770AA /* ChalkboardSE-Regular.ttf */; };
+		0EA8CCAF204355A900A770AA /* ChalkboardSE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8CCAB2043552800A770AA /* ChalkboardSE-Light.ttf */; };
+		0EA8CCB0204355AC00A770AA /* ChalkboardSE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8CCAC2043552F00A770AA /* ChalkboardSE-Bold.ttf */; };
+		0EA8CCB220436D9800A770AA /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA8CCB120436D9800A770AA /* DetailsCollectionViewCell.swift */; };
 		0EA9915F20183EC600F1A271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9915E20183EC600F1A271 /* AppDelegate.swift */; };
 		0EA9916120183EC600F1A271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9916020183EC600F1A271 /* ViewController.swift */; };
 		0EA9916420183EC600F1A271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916220183EC600F1A271 /* Main.storyboard */; };
@@ -36,13 +39,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E33DCFB203A223700D425FA /* DetailsViewCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewCustomLabel.swift; sourceTree = "<group>"; };
+		0E33DCFB203A223700D425FA /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		0E43981D2023B00300B744AE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
 		0E8E900C2030CAEB0030507E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E8E900F2030CB1C0030507E /* Coin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		0E8E90122030CB3F0030507E /* CoinViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinViewModel.swift; sourceTree = "<group>"; };
-		0E8E901F20332A020030507E /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		0E8E9023203386890030507E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0EA8CCAA2043552100A770AA /* ChalkboardSE-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChalkboardSE-Regular.ttf"; sourceTree = "<group>"; };
+		0EA8CCAB2043552800A770AA /* ChalkboardSE-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChalkboardSE-Light.ttf"; sourceTree = "<group>"; };
+		0EA8CCAC2043552F00A770AA /* ChalkboardSE-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChalkboardSE-Bold.ttf"; sourceTree = "<group>"; };
+		0EA8CCB120436D9800A770AA /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EA9915B20183EC600F1A271 /* CryptoPrices.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPrices.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EA9915E20183EC600F1A271 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EA9916020183EC600F1A271 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,8 +91,8 @@
 		0E33DCFF203A2AE100D425FA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				0E8E901F20332A020030507E /* SearchTableViewCell.swift */,
 				0E43981D2023B00300B744AE /* CoinTableViewCell.swift */,
+				0EA8CCB120436D9800A770AA /* DetailsCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -112,15 +118,26 @@
 			isa = PBXGroup;
 			children = (
 				0E8E9023203386890030507E /* Extensions.swift */,
-				0E33DCFB203A223700D425FA /* DetailsViewCustomLabel.swift */,
+				0E33DCFB203A223700D425FA /* CustomLabel.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0EA8CCAD2043553600A770AA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0EA8CCAA2043552100A770AA /* ChalkboardSE-Regular.ttf */,
+				0EA8CCAB2043552800A770AA /* ChalkboardSE-Light.ttf */,
+				0EA8CCAC2043552F00A770AA /* ChalkboardSE-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		0EA9915220183EC600F1A271 = {
 			isa = PBXGroup;
 			children = (
 				0EA9915D20183EC600F1A271 /* CryptoPrices */,
+				0EA8CCAD2043553600A770AA /* Fonts */,
 				0ECDA0ED201E3BB900BFF853 /* Frameworks */,
 				0EA9915C20183EC600F1A271 /* Products */,
 			);
@@ -228,6 +245,9 @@
 			files = (
 				0EA9916920183EC600F1A271 /* LaunchScreen.storyboard in Resources */,
 				0EA9916620183EC600F1A271 /* Assets.xcassets in Resources */,
+				0EA8CCAF204355A900A770AA /* ChalkboardSE-Light.ttf in Resources */,
+				0EA8CCAE204355A500A770AA /* ChalkboardSE-Regular.ttf in Resources */,
+				0EA8CCB0204355AC00A770AA /* ChalkboardSE-Bold.ttf in Resources */,
 				0EA9916420183EC600F1A271 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,13 +262,13 @@
 				0EA9916120183EC600F1A271 /* ViewController.swift in Sources */,
 				0EA9915F20183EC600F1A271 /* AppDelegate.swift in Sources */,
 				0ED52B9C2039E1B000A73724 /* DetailsViewController.swift in Sources */,
-				0E33DCFC203A223700D425FA /* DetailsViewCustomLabel.swift in Sources */,
+				0E33DCFC203A223700D425FA /* CustomLabel.swift in Sources */,
 				0E8E90132030CB3F0030507E /* CoinViewModel.swift in Sources */,
 				0E43981E2023B00300B744AE /* CoinTableViewCell.swift in Sources */,
 				0E8E9024203386890030507E /* Extensions.swift in Sources */,
+				0EA8CCB220436D9800A770AA /* DetailsCollectionViewCell.swift in Sources */,
 				0E8E90102030CB1C0030507E /* Coin.swift in Sources */,
 				0E8E900D2030CAEB0030507E /* API.swift in Sources */,
-				0E8E902020332A020030507E /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

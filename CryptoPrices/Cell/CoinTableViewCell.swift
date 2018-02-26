@@ -11,10 +11,10 @@ import UIKit
 
 class CoinTableViewCell: UITableViewCell {
     var cryptoCurrencyImageView = UIImageView()
-    var priceLabel = UILabel()
-    var symbolLabel = UILabel()
-    var nameLabel = UILabel()
-    var priceChangeLabel = UILabel()
+    var priceLabel = CustomLabel()
+    var symbolLabel = CustomLabel()
+    var nameLabel = CustomLabel()
+    var priceChangeLabel = CustomLabel()
     
     let priceLineChartView = UILabel()
     let queue = OperationQueue()

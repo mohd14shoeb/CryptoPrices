@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.separatorStyle = .singleLine
         tableView.backgroundColor = UIColor.lightGray
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     

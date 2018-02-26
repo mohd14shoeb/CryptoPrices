@@ -7,132 +7,139 @@
 //
 
 import UIKit
+import MapKit
 
-class DetailsViewController: UIViewController {
+class DetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var coin: CoinViewModel!
     
-    var nameLabel = DetailsViewCustomLabel()
-    var symbolLabel = DetailsViewCustomLabel()
-    var priceLabel = DetailsViewCustomLabel()
-    var priceChangeLabel = DetailsViewCustomLabel()
-    var rankLabel = DetailsViewCustomLabel()
-    var idLabel = DetailsViewCustomLabel()
-    var dayVolumeLabel = DetailsViewCustomLabel()
-    var marketCapLabel = DetailsViewCustomLabel()
-    var availableSupplyLabel = DetailsViewCustomLabel()
-    var totalSupplyLabel = DetailsViewCustomLabel()
-    var maxSupplyLabel = DetailsViewCustomLabel()
-    var updatedLabel = DetailsViewCustomLabel()
-    var btcPriceLabel = DetailsViewCustomLabel()
+
+    
+//    let collectionController = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//    let collection = UICollectionViewController(collectionViewLayout: UICollectionViewFlowLayout()).collectionView
+    
+    var collectionView: UICollectionView!
+    
+    let backgroundImageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Rectangle")
+        image.contentMode = .scaleToFill
+        return image
+    }()
+    
+    let topImageView: UIImageView = {
+        let image = UIImageView()
+        image.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+        image.contentMode = .scaleToFill
+        return image
+    }()
+    
+    let bottomImageView: UIImageView = {
+        let image = UIImageView()
+        image.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+        image.contentMode = .scaleToFill
+        return image
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1)
+        
+        navigationItem.title = coin.name
+        
         setupViews()
-        refreshData()
+        
+        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     func refreshData() {
-        let priceDouble = Double(coin.priceUSD!)
-        let formattedPrice = NSNumber(value: priceDouble!).formattedCurrencyStringUSD
-        self.nameLabel.text = coin.name
-        self.symbolLabel.text = "Coin symbol: " + (coin.symbol ?? "N/A")
-        self.priceLabel.text = "Coin price: " + (formattedPrice ?? "N/A")
-        self.priceChangeLabel.text = "1h Change: " + (coin.priceChange1h ?? "N/A") + "%"
-        self.btcPriceLabel.text = "Price in BTC: " + (coin.priceBTC ?? "N/A")
-        self.rankLabel.text = "Coin rank: " + (coin.rank ?? "N/A")
-        self.dayVolumeLabel.text = "24h volume: " + (coin.dayVolumeUSD ?? "N/A")
-        self.marketCapLabel.text = "Market cap: " + (coin.marketCapUSD ?? "N/A")
-        self.availableSupplyLabel.text = "Available supply: " + (coin.availableSupply ?? "N/A")
-        self.totalSupplyLabel.text = "Total supply: " + (coin.totalSupply ?? "N/A")
-        self.maxSupplyLabel.text = "Max. supply: " + (coin.maxSupply ?? "N/A")
-        self.idLabel.text = "Coin ID: " + (coin.id ?? "N/A")
-        self.updatedLabel.text = "Last updated: " + (coin.lastUpdated ?? "N/A")
     }
     
     func setupViews() {
-        view.backgroundColor = .lightGray
-        view.addSubview(nameLabel)
-        view.addSubview(symbolLabel)
-        view.addSubview(priceLabel)
-        view.addSubview(priceChangeLabel)
-        view.addSubview(rankLabel)
-        view.addSubview(idLabel)
-        view.addSubview(dayVolumeLabel)
-        view.addSubview(marketCapLabel)
-        view.addSubview(availableSupplyLabel)
-        view.addSubview(totalSupplyLabel)
-        view.addSubview(maxSupplyLabel)
-        view.addSubview(updatedLabel)
-        view.addSubview(btcPriceLabel)
-        nameLabel.backgroundColor = .gray
+        let layout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        view.addSubview(collectionView)
+        view.addSubview(topImageView)
+        view.addSubview(bottomImageView)
+        
+        topImageView.translatesAutoresizingMaskIntoConstraints = false
+        bottomImageView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        topImageView.image = UIImage(named: (coin.symbol?.lowercased())!)
+        bottomImageView.image = UIImage(named: (coin.symbol?.lowercased())!)
+        
+        collectionView.backgroundColor = UIColor(red: 84/255, green: 84/255, blue: 84/255, alpha: 1)
+        collectionView.backgroundView = backgroundImageView
+        collectionView.layer.cornerRadius = 5
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            
-            nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            nameLabel.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 50),
+            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 100),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
 
-            symbolLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            symbolLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 50),
-            symbolLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            symbolLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            priceLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            priceLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor, constant: 8),
-            priceLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            priceLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            btcPriceLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            btcPriceLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
-            btcPriceLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            btcPriceLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            priceChangeLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            priceChangeLabel.topAnchor.constraint(equalTo: btcPriceLabel.bottomAnchor, constant: 8),
-            priceChangeLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            priceChangeLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            rankLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            rankLabel.topAnchor.constraint(equalTo: priceChangeLabel.bottomAnchor, constant: 8),
-            rankLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            rankLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            dayVolumeLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            dayVolumeLabel.topAnchor.constraint(equalTo: rankLabel.bottomAnchor, constant: 8),
-            dayVolumeLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            dayVolumeLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            marketCapLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            marketCapLabel.topAnchor.constraint(equalTo: dayVolumeLabel.bottomAnchor, constant: 8),
-            marketCapLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            marketCapLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            availableSupplyLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            availableSupplyLabel.topAnchor.constraint(equalTo: marketCapLabel.bottomAnchor, constant: 8),
-            availableSupplyLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            availableSupplyLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            totalSupplyLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            totalSupplyLabel.topAnchor.constraint(equalTo: availableSupplyLabel.bottomAnchor, constant: 8),
-            totalSupplyLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            totalSupplyLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            maxSupplyLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            maxSupplyLabel.topAnchor.constraint(equalTo: totalSupplyLabel.bottomAnchor, constant: 8),
-            maxSupplyLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            maxSupplyLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            idLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            idLabel.topAnchor.constraint(equalTo: maxSupplyLabel.bottomAnchor, constant: 8),
-            idLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            idLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            updatedLabel.leftAnchor.constraint(equalTo: view.leftAnchor),
-            updatedLabel.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 8),
-            updatedLabel.rightAnchor.constraint(equalTo: view.rightAnchor),
-            updatedLabel.heightAnchor.constraint(equalToConstant: 30)
+            topImageView.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: 20),
+            topImageView.heightAnchor.constraint(equalToConstant: 70),
+            topImageView.widthAnchor.constraint(equalToConstant: 70),
+            topImageView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+
+            bottomImageView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -20),
+            bottomImageView.heightAnchor.constraint(equalToConstant: 70),
+            bottomImageView.widthAnchor.constraint(equalToConstant: 70),
+            bottomImageView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
         ])
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! DetailsCollectionViewCell
+        
+        let priceDouble = Double(coin.priceUSD!)
+        let formattedPrice = NSNumber(value: priceDouble!).formattedCurrencyStringUSD
+        cell.btcPriceLabel.text = (coin.priceBTC ?? "N/A") + " BTC"
+        cell.symbolLabel.text = coin.symbol ?? "N/A"
+        cell.priceLabel.text = formattedPrice ?? "N/A"
+        cell.priceChange1hLabel.text = (coin.priceChange1h ?? "N/A") + " %"
+        cell.priceChange24hLabel.text = (coin.priceChange24h ?? "N/A") + " %"
+        cell.priceChange7dLabel.text = (coin.priceChange7d ?? "N/A") + " %"
+        let dayVolumeDouble = Double(coin.dayVolumeUSD!)
+        let formattedDayVolume = NSNumber(value: dayVolumeDouble!).formattedCurrencyStringUSD
+        cell.dayVolumeLabel.text = formattedDayVolume ?? "N/A"
+        let marketCapDouble = Double(coin.marketCapUSD!)
+        let formattedMarketCap = NSNumber(value: marketCapDouble!).formattedCurrencyStringUSD
+        cell.marketCapLabel.text = formattedMarketCap ?? "N/A"
+        cell.availableSupplyLabel.text = (coin.availableSupply ?? "N/A") + " \(coin.symbol!)"
+        cell.totalSupplyLabel.text = (coin.totalSupply ?? "N/A") + " \(coin.symbol!)"
+        cell.maxSupplyLabel.text = (coin.maxSupply ?? "N/A") + " \(coin.symbol!)"
+        
+        cell.descriptionPriceLabel.text = "CoinPrice"
+        cell.descriptionbtcPriceLabel.text = "Price in BTC"
+        cell.descriptionSymbolLabel.text = "Coin Symbol"
+        cell.descriptionPriceChange1hLabel.text = "Price Change (1h)"
+        cell.descriptionpriceChange24hLabel.text = "Price Change (24h)"
+        cell.descriptionpriceChange7dLabel.text = "Price Change (7d)"
+        cell.descriptionDayVolumeLabel.text = "Daily Volume"
+        cell.descriptionMarketCapLabel.text = "Market Cap"
+        cell.descriptionAvailableSupplyLabel.text = "Available Supply"
+        cell.descriptionTotalSupplyLabel.text = "Total Supply"
+        cell.descriptionMaxSupplyLabel.text = "Max Supply"
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 500)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

@@ -41,5 +41,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ChalkboardSE-Bold.ttf</string>
+		<string>ChalkboardSE-Regular.ttf</string>
+		<string>ChalkboardSE-Light.ttf</string>
+	</array>
 </dict>
 </plist>
