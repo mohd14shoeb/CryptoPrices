@@ -17,6 +17,7 @@
 		0EA8CCAF204355A900A770AA /* ChalkboardSE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8CCAB2043552800A770AA /* ChalkboardSE-Light.ttf */; };
 		0EA8CCB0204355AC00A770AA /* ChalkboardSE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8CCAC2043552F00A770AA /* ChalkboardSE-Bold.ttf */; };
 		0EA8CCB220436D9800A770AA /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA8CCB120436D9800A770AA /* DetailsCollectionViewCell.swift */; };
+		0EA8CCB420438FF700A770AA /* ExtensionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA8CCB320438FF700A770AA /* ExtensionDetailsViewController.swift */; };
 		0EA9915F20183EC600F1A271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9915E20183EC600F1A271 /* AppDelegate.swift */; };
 		0EA9916120183EC600F1A271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9916020183EC600F1A271 /* ViewController.swift */; };
 		0EA9916420183EC600F1A271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9916220183EC600F1A271 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		0EA8CCAB2043552800A770AA /* ChalkboardSE-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChalkboardSE-Light.ttf"; sourceTree = "<group>"; };
 		0EA8CCAC2043552F00A770AA /* ChalkboardSE-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChalkboardSE-Bold.ttf"; sourceTree = "<group>"; };
 		0EA8CCB120436D9800A770AA /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		0EA8CCB320438FF700A770AA /* ExtensionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDetailsViewController.swift; sourceTree = "<group>"; };
 		0EA9915B20183EC600F1A271 /* CryptoPrices.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPrices.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EA9915E20183EC600F1A271 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EA9916020183EC600F1A271 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				0E8E9023203386890030507E /* Extensions.swift */,
 				0E33DCFB203A223700D425FA /* CustomLabel.swift */,
+				0EA8CCB320438FF700A770AA /* ExtensionDetailsViewController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -137,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				0EA9915D20183EC600F1A271 /* CryptoPrices */,
-				0EA8CCAD2043553600A770AA /* Fonts */,
 				0ECDA0ED201E3BB900BFF853 /* Frameworks */,
 				0EA9915C20183EC600F1A271 /* Products */,
 			);
@@ -163,6 +165,7 @@
 				0E33DCFE203A2AC400D425FA /* ViewModel */,
 				0E33DCFD203A2A9E00D425FA /* Model */,
 				0E8E900B2030CAD70030507E /* API */,
+				0EA8CCAD2043553600A770AA /* Fonts */,
 				0EA9916520183EC600F1A271 /* Assets.xcassets */,
 				0EA9916720183EC600F1A271 /* LaunchScreen.storyboard */,
 				0EA9916A20183EC600F1A271 /* Info.plist */,
@@ -268,6 +271,7 @@
 				0E8E9024203386890030507E /* Extensions.swift in Sources */,
 				0EA8CCB220436D9800A770AA /* DetailsCollectionViewCell.swift in Sources */,
 				0E8E90102030CB1C0030507E /* Coin.swift in Sources */,
+				0EA8CCB420438FF700A770AA /* ExtensionDetailsViewController.swift in Sources */,
 				0E8E900D2030CAEB0030507E /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

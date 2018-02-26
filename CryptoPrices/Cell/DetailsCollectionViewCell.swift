@@ -69,7 +69,7 @@ class DetailsCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             descriptionPriceLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25),
             descriptionPriceLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width / 2),
-            descriptionPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            descriptionPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             descriptionPriceLabel.heightAnchor.constraint(equalToConstant: 30),
             
             descriptionbtcPriceLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25),
@@ -124,7 +124,7 @@ class DetailsCollectionViewCell: UICollectionViewCell {
             
             priceLabel.leftAnchor.constraint(equalTo: descriptionPriceLabel.rightAnchor),
             priceLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -25),
-            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             priceLabel.heightAnchor.constraint(equalToConstant: 30),
             
             btcPriceLabel.leftAnchor.constraint(equalTo: descriptionbtcPriceLabel.rightAnchor),
